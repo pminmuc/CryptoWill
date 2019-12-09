@@ -1,0 +1,43 @@
+<h2>{{ title }}</h2>
+
+<div class="container">
+    <p>Current status: {{ status }}</p>
+</div>
+
+<div class="container">
+    <img src="./images/stockphoto_film.jpeg" class="img-rounded" alt="Film">
+</div>
+
+<div class="container">
+    <p>Currently Funded: {{ funded }} ETH / {{ goal }} ETH</p>
+</div>
+
+<div class="container">
+    <p>Tokens available: {{ tokens }} CTK</p>
+</div>
+
+<div class="container">
+    <p>Contract address: {{ contractAddr }}</p>
+</div>
+
+<div class="container">
+    <p>Contract balance: {{ contractBalance }} ETH</p>
+</div>
+
+<div class="container">
+    <button type="button" class="btn btn-outline-dark" id='joinbtn' onclick="location.href = './join';">Fund this!
+    </button>
+</div>
+
+{{#if userAddr.length }}
+<div class="container">
+    <p>User details:</p>
+    <p>User address: {{ userAddr }} </p>
+    <p>Last investment: {{ userFunding }} ETH</p>
+    <p>Current tokens: {{ userTokens }} CTK</p>
+</div>
+{{/if}}
+
+
+
+

@@ -1,0 +1,24 @@
+<h2>{{ title }}</h2>
+
+<div class="container">
+    <p>Current status: Still ongoing</p>
+</div>
+
+<div class="container">
+    <img src="./images/stockphoto_film.jpeg" class="img-rounded" alt="Film">
+</div>
+
+<div class="container form-group">
+    <form action="/submit-data" method="post">
+        <label for="accAddr">Funding account:</label>
+        <input name="accAddr" type="text" /> <br />
+
+        <label for="amount">Funding amount:</label>
+        <input name="amount" type="number" /> <br />
+
+        <label for="pwd">Passphrase: </label>
+        <input name="pwd" type="password" /> <br />
+
+        <input type="submit" class="btn btn-outline-dark" value="Submit"/>
+    </form>
+</div>
