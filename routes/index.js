@@ -11,8 +11,34 @@ var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
 /* GET home page. */
 router.get('/', async function (req, res, next) {
     // Open homepage
-    let _goal = await contract.getGoalAmount();
-    res.render('index', {title: 'Home', goal: _goal});
+    res.render('index', {title: 'Home'});
+});
+
+/* GET about page. */
+router.get('/about', async function (req, res, next) {
+    // Open about
+    res.render('about', {title: 'About'});
+});
+
+/* GET contact page. */
+router.get('/contact', async function (req, res, next) {
+    // Open contact page
+    res.render('contact', {title: 'Contact'});
+});
+
+/* GET create Will page. */
+router.get('/createWill', async function (req, res, next) {
+    // Open create Will page
+    res.render('createWill', {title: 'Creation'});
+});
+
+/* Handle will creation request */
+router.post('/submitWill', async function (req, res) {
+    // Submit will and process it
+    // TODO
+
+    // Return back to services
+    res.redirect('/services');
 });
 
 /* GET owner page. */

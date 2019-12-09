@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -11,23 +11,35 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <ul class="navbar-nav">
-        <li class="nav-brand active">
-            <a class="nav-link" id="home-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="owner-link" href="/owner">Owner</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="investor-link" href="/investor">Invest</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="join-link" href="/join">Join</a>
-        </li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
+<!--Might want to add container here to limit width of navbar.-->
+    <div class="d-flex flex-grow-1">
+        <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
+        <a class="navbar-brand" href="/">
+            CryptoWill.
+        </a>
+        <div class="w-100 text-right">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse flex-grow-1 text-right" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+            <li class="nav-item">
+                <a href="/about" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+                <a href="/createWill" class="nav-link">Services</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/contact" class="nav-link">Contact</a>
+            </li>
+        </ul>
+    </div>
 </nav>
-<div class="container bg-light">
+
+<div class="container-fluid bg-light">
     {{{ body }}}
 </div>
 </body>
