@@ -9,12 +9,12 @@ contract LastWill {
     // Bool Is this Contract still valid?
     bool private valid;
     // Array of contacts of the owner
-    string[] private contacts;
+    string private information;
     //time of validity?
     uint256 private deadline;
     // Struct of the beneficiaries
     struct Beneficiary{
-        address payable addBen;
+        address addBen;
         uint256 ratio;
         string contact;
     }
@@ -25,28 +25,28 @@ contract LastWill {
     address[] private benAccs;
 
 
-    function LastWill(){
-
-    }
+    // function LastWill(){
+    //
+    // }
 
     //Constructor for new Last Will
     constructor(
-        string _email,
-        string[] _contacts,
+        string memory _email,
+        string memory _information,
         uint256 _deadline,
-        address[] _benAccs,
-        string[] _contact,
-        uint256[] _ratio
+        address[] memory _benAccs,
+        //string[] memory _contact,
+        uint256[] memory _ratio
     ) public {
         owner = msg.sender;
         email = _email;
         numbOfVer = 0;
         valid = true;
-        _contacts = contacts;
+        _information = information;
         _deadline = now + _deadline * 1 minutes;
-        _benAccs[] = benAccs;
+        _benAccs = benAccs;
         for(uint i = 0; i < benAccs.length; i++) {
-            ben[benAccs[i]] = Beneficiary(benAccs[i], _ratio, _contact);
+            ben[benAccs[i]] = Beneficiary(benAccs[i], _ratio[i], "Nothing Yet");
         }
     }
 
@@ -70,15 +70,15 @@ contract LastWill {
         return valid;
     }
 
-    function getContacts() view public returns(string[] memory) {
-        return contacts;
+    function getInformation() view public returns(string memory) {
+        return information;
     }
 
     function getDeadline() view public returns(uint256) {
         return deadline;
     }
 
-    function getBenAccs() view public returns(address[]) {
+    function getBenAccs() view public returns(address[] memory) {
         return benAccs;
     }
 }
