@@ -25,7 +25,7 @@ async function getWill(addr) {
 }
 
 async function newLastWill(addr, value, email, deadline, benAccs, benRatios, verAcc) {
-    const response = await lastWillFactory.methods.newLastWill(email, deadline, benAccs, benRatios, verAcc).send({from: addr, value: value});
+    const response = await lastWillFactory.methods.newLastWill(email, deadline, benAccs, benRatios, verAcc).send({from: addr, value: 1, gas: 6721000});
     return response;
 }
 

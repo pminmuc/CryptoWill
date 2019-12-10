@@ -19,7 +19,7 @@
                 web3Provider = window.web3.currentProvider
             } else {
                 // otherwise, use truffle network...
-                web3Provider = new Web3.providers.HttpProvider('http://localhost:8545')
+                web3Provider = new Web3.providers.HttpProvider('http://localhost:7545')
             }
 
             console.log("web3Provider", web3Provider) // MetamaskInpageProvider
@@ -28,6 +28,7 @@
 
             await web3.eth.getAccounts(function(error, accounts) {
                 document.getElementById("currAccount").innerHTML = "Currently logged in with account: " + accounts;
+                // document.getElementById("createAddr").value = accounts;
             })
         }))
     </script>

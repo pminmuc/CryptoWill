@@ -6,7 +6,7 @@
                     <div class="col-md-6">
                         <h3>Create your last will</h3>
                         <!-- Adjust action here-->
-                        <form action="/submitWill">
+                        <form action="/submitWill" method="post">
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class="sr-only" for="name">Name</label>
@@ -17,7 +17,14 @@
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class="sr-only" for="email">Email</label>
-                                    <input type="text" name="email" class="form-control" placeholder="Your email address">
+                                    <input type="email" name="email" class="form-control" placeholder="Your email address">
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="sr-only" for="addr">Addr</label>
+                                    <input type="text" id="createAddr" name="addr" class="form-control" placeholder="Your account address">
                                 </div>
                             </div>
 
@@ -35,19 +42,19 @@
                                 </div>
                             </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="benef2">Beneficiary</label>
-                                    <input type="text" name="benef2" class="form-control" placeholder="Beneficiary2 address">
-                                </div>
-                            </div>
+<!--                            <div class="row form-group">-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <label class="sr-only" for="benef2">Beneficiary</label>-->
+<!--                                    <input type="text" name="benef2" class="form-control" placeholder="Beneficiary2 address">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="share2">Share</label>
-                                    <input type="text" name="share2" class="form-control" placeholder="Beneficiaries2 share">
-                                </div>
-                            </div>
+<!--                            <div class="row form-group">-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <label class="sr-only" for="share2">Share</label>-->
+<!--                                    <input type="text" name="share2" class="form-control" placeholder="Beneficiaries2 share">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="row form-group">
                                 <div class="col-md-12">
@@ -56,12 +63,12 @@
                                 </div>
                             </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="deadswitch">Days to cancel</label>
-                                    <input type="text" id="deadswitch" class="form-control" placeholder="Days to cancel">
-                                </div>
-                            </div>
+<!--                            <div class="row form-group">-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <label class="sr-only" for="deadswitch">Days to cancel</label>-->
+<!--                                    <input type="text" id="deadswitch" class="form-control" placeholder="Days to cancel">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="form-group">
                                 <input type="submit" value="Submit" class="btn btn-outline-dark">
