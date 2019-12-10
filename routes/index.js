@@ -34,8 +34,13 @@ router.get('/createWill', async function (req, res, next) {
 
 /* Handle will creation request */
 router.post('/submitWill', async function (req, res) {
+    // Get information from message
+    let _benef = req.body.benef;
+    let _benefShare = req.body.share;
+    let _verif = req.body.verifier;
+
     // Submit will and process it
-    // TODO
+
 
     // Return back to services
     res.redirect('/services');
@@ -86,10 +91,6 @@ router.get('/investor', async function (req, res, next) {
     let _goal = await contract.getGoalAmount();
     let _currTokens = await token.getBalanceByAddress(_contrAddr);
     let _ended = await contract.getEnded();
-
-    // DEBUG
-    console.log(_funded);
-    console.log(_goal);
 
     // Set status
     let _status;

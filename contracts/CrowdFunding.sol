@@ -49,7 +49,7 @@ contract CrowdFunding {
         // Adjustment to prevent overfunding when no tokens are left.
         if (totalAmount + amount > goalAmount) {
             uint excessAmount = totalAmount + amount - goalAmount;
-            msg.sender.send(excessAmount);
+            msg.sender.transfer(excessAmount);
             amount = amount - excessAmount;
         }
         balanceOf[msg.sender] += amount;
