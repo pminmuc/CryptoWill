@@ -46,82 +46,6 @@ router.post('/submitWill', async function (req, res) {
     res.redirect('/services');
 });
 
-/* GET owner page. */
-router.get('/owner', async function (req, res, next) {
-    // Get necessary information from the contract
-    let _owner = await contract.getOwner();
-    let _contrAddr = contract.contractAddr;
-    let _contrBal = await contract.getContractBalance();
-    let _funded = await contract.getTotalAmount();
-    let _goal = await contract.getGoalAmount();
-    let _balance = await contract.getOwnerBalance();
-    let _ended = await contract.getEnded();
-    // Set status of current funding
-    let _status;
-    if (_ended) {
-        if (parseInt(_funded) >= parseInt(_goal)) {
-            _status = "Funding finished successful.";
-        } else {
-            _status = "Funding failed."
-        }
-    } else {
-        _status = "Funding still active."
-    }
-
-    // Open owner page with given information
-    res.render('owner', {
-        title: 'Owner',
-        contractAddr: _contrAddr,
-        ownerAddr: _owner,
-        status: _status,
-        funded: _funded,
-        goal: _goal,
-        ownerBalance: _balance,
-        contractBalance: _contrBal
-    });
-});
-
-/* GET investor page. */
-router.get('/investor', async function (req, res, next) {
-    // Get necessary information from the contract.
-    let _owner = await contract.getOwner();
-    let _contrAddr = contract.contractAddr;
-    let _contrBal = await contract.getContractBalance();
-    let _funded = await contract.getTotalAmount();
-    let _goal = await contract.getGoalAmount();
-    let _currTokens = await token.getBalanceByAddress(_contrAddr);
-    let _ended = await contract.getEnded();
-
-    // Set status
-    let _status;
-    if (_ended) {
-        if (parseInt(_funded) >= parseInt(_goal)) {
-            _status = "Funding finished successful.";
-        } else {
-            _status = "Funding failed."
-        }
-    } else {
-        _status = "Funding still active."
-    }
-
-    // Open page with given information
-    res.render('investor', {
-        title: 'Investor',
-        contractAddr: _contrAddr,
-        ownerAddr: _owner,
-        status: _status,
-        funded: _funded,
-        goal: _goal,
-        contractBalance: _contrBal,
-        tokens: _currTokens
-    });
-});
-
-/* GET join page. */
-router.get('/join', async function (req, res, next) {
-    res.render('join', {title: 'Join'});
-});
-
 /* Handle submission request */
 router.post('/submit-data', async function (req, res) {
     // Get information from the client-request.
@@ -189,32 +113,6 @@ router.post('/submit-data', async function (req, res) {
         userFunding: _userFunding,
         userTokens: _userTokens
     });
-});
-
-/* Handle withdraw request */
-router.post('/owner-withdraw', async function (req, res) {
-    // Attempt to withdraw funds.
-    await contract.withdraw()
-        .then((response) => {
-            console.log(response);
-        }).catch((error) => {
-            console.log(error);
-        });
-    // Return back to owner
-    res.redirect('/owner');
-});
-
-/* Handle withdraw request */
-router.post('/check-goal', async function (req, res) {
-    // Attempt to check goal reached.
-    await contract.checkGoalReached()
-        .then((response) => {
-            console.log(response);
-        }).catch((error) => {
-            console.log(error);
-        });
-    // Return back to owner
-    res.redirect('/owner');
 });
 
 module.exports = router;

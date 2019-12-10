@@ -9,6 +9,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="./javascripts/web3.js"></script>
+    <script>
+        $(( async function() {
+            let web3Provider;
+
+            if (typeof window.web3 !== 'undefined') {
+                // if metamask is on, web3 is injected...
+                web3Provider = window.web3.currentProvider
+            } else {
+                // otherwise, use truffle network...
+                web3Provider = new Web3.providers.HttpProvider('http://localhost:8545')
+            }
+
+            console.log("web3Provider", web3Provider) // MetamaskInpageProvider
+
+            let web3 = new Web3(web3Provider) // {givenProvider: MetamaskInpageProvider .. }
+
+            await web3.eth.getAccounts(function(error, accounts) {
+                document.getElementById("currAccount").innerHTML = "Currently logged in with account: " + accounts;
+            })
+        }))
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
@@ -49,7 +71,7 @@
         <div class="row">
             <div class="col-md-6 offset-md-3 text-center">
                 <!--   Here I want to get the current account from metamask-->
-                <p>Currently logged in with account: </p>
+                <p id="currAccount"></p>
             </div>
         </div>
     </div>
