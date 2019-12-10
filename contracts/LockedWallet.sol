@@ -12,7 +12,7 @@ contract LockedWallet {
         _;
     }
 
-    function LockedWallet(
+    constructor(
         address _creator,
         address _owner,
         uint256 _unlockDate
@@ -24,7 +24,7 @@ contract LockedWallet {
     }
 
     // keep all the ether sent to this address
-    function() payable public {
+    function() payable external{
         emit Received(msg.sender, msg.value);
     }
 
