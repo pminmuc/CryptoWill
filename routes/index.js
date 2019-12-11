@@ -7,13 +7,6 @@ var Web3 = require('web3');
 // Init web3 provider to communicate with local blockchain.
 var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
 
-//Get stuff from contract
-// IMPLEMENT
-let hasLastWill = true;
-let email = "Email"
-let benAccs = "BenAccs"
-let verifier = "Verifier"
-
 /* GET home page. */
 router.get('/', async function (req, res, next) {
     // Open homepage
@@ -38,8 +31,30 @@ router.get('/createWill', async function (req, res, next) {
     res.render('createWill', {title: 'Creation'});
 });
 
-/* GET my Will page. */
+/* GET witness page. */
+router.get('/witness', async function (req, res, next) {
+
+    //Get stuff from blockchain contract
+    // IMPLEMENT
+    let isWitness = true;
+    let email = "Email"
+    let benAccs = "BenAccs"
+    let verifier = "Verifier"
+
+    // Open create Will page
+    res.render('witness', {isWitness: isWitness, email:email, benAccs: benAccs, verifier: verifier});
+});
+
+/* GET myWill page. */
 router.get('/myWill', async function (req, res, next) {
+
+    //Get stuff from contract
+    // IMPLEMENT
+    let hasLastWill = true;
+    let email = "Email"
+    let benAccs = "BenAccs"
+    let verifier = "Verifier"
+
     // Open create Will page
     res.render('myWill', {
         hasLastWill: hasLastWill,
