@@ -90,13 +90,15 @@ contract LastWill {
 
     //Check if all Witnesses confirmed the death of the person
     modifier afterDeath() {
-        bool isDead = false;
+        uint deathCounter = 0;
         for(uint i = 0; i < witnessAccs.length; i++) {
             if(witnesses[witnessAccs[i]].confirmedDeath) {
-                isDead = true;
+                deathCounter++;
+            } else {
+                require(false);
             }
         }
-        require(isDead);
+        require(deathCounter == witnessAccs.length);
         _;
     }
 
@@ -108,11 +110,11 @@ contract LastWill {
         emit Received(msg.sender, msg.value);
     }
 
-    // Verify Will
+    // Verify Will by one Verifier / Witness
     function verifyWill() onlyVerifier public {
         witnesses[msg.sender].verifiedWill = true;
     }
-    // Verify Death
+    // Verify Death by one Verifier / witness
     function confirmDeath() onlyVerifier public {
         witnesses[msg.sender].confirmedDeath = true;
     }
