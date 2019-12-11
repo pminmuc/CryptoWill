@@ -46,14 +46,14 @@ router.get('/witness', async function (req, res, next) {
 });
 
 /* GET myWill page. */
-router.get('/myWill', async function (req, res, next) {
-
+router.get('/myWill/:userAddr', async function (req, res, next) {
+    let acc = req.params.userAddr;
+    
     //Get stuff from contract
-    // IMPLEMENT
     let hasLastWill = true;
-    let email = "Email"
-    let benAccs = "BenAccs"
-    let verifier = "Verifier"
+    let email = "Email";
+    let benAccs = "BenAccs";
+    let verifier = "Verifier";
 
     // Open create Will page
     res.render('myWill', {

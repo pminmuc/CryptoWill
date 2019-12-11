@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="./javascripts/web3.js"></script>
+    <script src="./javascripts/transmitAccount.js"></script>
     <script>
         $(( async function() {
             let web3Provider;
@@ -26,12 +27,14 @@
 
             let web3 = new Web3(web3Provider) // {givenProvider: MetamaskInpageProvider .. }
 
+
             await web3.eth.getAccounts(function(error, accounts) {
-                document.getElementById("currAccount").innerHTML = "Currently logged in with account: " + accounts;
-                // document.getElementById("createAddr").value = accounts;
+                document.getElementById("currAccount").innerHTML = "Logged in with: " + accounts[0];
+                document.getElementById("myHiddenAccount").value = accounts[0];
             })
-        }))
+        }));
     </script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
@@ -56,7 +59,7 @@
                 <a href="/createWill" class="nav-link">Services</a>
             </li>
             <li class="nav-item ">
-                <a href="/myWill" class="nav-link">My Will</a>
+                <a href="javascript:loadMyWill();" class="nav-link">My Will</a>
             </li>
             <li class="nav-item ">
                 <a href="/witness" class="nav-link">For Witnesses</a>
@@ -79,6 +82,7 @@
             <div class="col-md-6 offset-md-3 text-center">
                 <!--   Here I want to get the current account from metamask-->
                 <p id="currAccount"></p>
+                <input type="hidden" id="myHiddenAccount">
             </div>
         </div>
     </div>
