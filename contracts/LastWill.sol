@@ -90,13 +90,20 @@ contract LastWill {
 
     //Check if all Witnesses confirmed the death of the person
     modifier afterDeath() {
-        bool isDead = false;
+        uint deathCounter = 0;
         for(uint i = 0; i < witnessAccs.length; i++) {
             if(witnesses[witnessAccs[i]].confirmedDeath) {
-                isDead = true;
+                deathCounter++;
+            } else {
+                require(false);
             }
         }
-        require(isDead);
+        require(deathCounter == witnessAccs.length);
+        _;
+    }
+    //Check if the ratio is over 0, so function only can be called if ratio is valid
+    modifier ratioValid() {
+        require(ben[msg.sender].ratio > 0);
         _;
     }
 
@@ -108,22 +115,24 @@ contract LastWill {
         emit Received(msg.sender, msg.value);
     }
 
-    // Verify Will
+    // Verify Will by one Verifier / Witness
     function verifyWill() onlyVerifier public {
         witnesses[msg.sender].verifiedWill = true;
     }
-    // Verify Death
+    // Verify Death by one Verifier / witness
     function confirmDeath() onlyVerifier public {
         witnesses[msg.sender].confirmedDeath = true;
     }
 
-    function inherit() onlyBeneficiary afterVerification afterDeath public {
+    // Inherit function
+    function inherit() onlyBeneficiary afterVerification afterDeath ratioValid public {
+
         address payable benef = msg.sender;
         uint256 inheritance = 0;
         uint256 share = ben[address(benef)].ratio;
 
-        // Calculate the inheritance amount for beneficiary
-        inheritance = address(this).balance * share;
+        // Calculate the inheritance amount for beneficiary | divide by 100 again
+        inheritance = (address(this).balance * share) / 100;
 
         // Send the inheritance amount to the beneficiary
         benef.transfer(inheritance);
@@ -131,9 +140,11 @@ contract LastWill {
 
         // Set share to 0 to avoid double inheritance.
         ben[address(benef)].ratio = 0;
+
     }
 
     function withdraw() onlyOwner public {
+
 
     }
 
