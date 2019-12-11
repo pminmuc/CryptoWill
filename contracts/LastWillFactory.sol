@@ -6,7 +6,7 @@ import "./LastWill.sol";
 contract LastWillFactory {
 
     // Store all the wills that have been created.
-    mapping(address => address payable) wills;
+    mapping(address => address) wills;
 
     // Returns the will to a specific user address.
     function getWill() public view returns(address) {
@@ -24,10 +24,12 @@ contract LastWillFactory {
         will = address(new LastWill(_email, _deadline, _benAccs, _ratio, _verifier));
 
         // Add will to sender will.
-        wills[msg.sender] = address(uint160(will));
+        wills[msg.sender] = address(will);
 
         // Send ether from this transaction to the created will.
         address(uint160(will)).transfer(msg.value);
+
+        return will;
     }
 
     // Prevents accidental sending of ether to the factory
