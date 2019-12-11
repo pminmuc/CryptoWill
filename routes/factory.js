@@ -19,26 +19,31 @@ var contractAddress = contractJSON.networks[5777].address;
 // Create contract object
 var lastWillFactory = new web3.eth.Contract(contractAbi, contractAddress);
 
-async function getWill(addr) {
-    const response = await lastWillFactory.methods.getWill().call({from: addr});
+async function newLastWill(addr, value, email, deadline, benAccs, benRatios, verAcc) {
+    const response = await lastWillFactory.methods.newLastWill(email, deadline, benAccs, benRatios, verAcc).send({from: addr, value: 1, gas: 6721000});
+    console.log(response);
     return response;
 }
 
-async function newLastWill(addr, value, email, deadline, benAccs, benRatios, verAcc) {
-    // try {
-        const response = await lastWillFactory.methods.newLastWill(email, deadline, benAccs, benRatios, verAcc).send({from: addr, value: 1, gas: 6721000});
-        console.log(response);
-        return response;
-    // } catch(error) {
-    //     // DEBUG
-    //     console.log("ERROR");
-    //     return(error);
-    // }
+async function getWill(addr) {
+    let response = await lastWillFactory.methods.getWill().call({from: addr});
+    return response;
+}
+
+async function transferToWill(addr, value) {
+    let willAddr = await getWill(addr);
+    let _value = await web3.utils.toWei(value, "ether");
+
+    // TODO
+    // Do we need to unlock here?!
+
+    await web3.eth.sendTransaction({from: addr, to: willAddr, value: _value});
 }
 
 // Export all the necessary functions and attributes.
 module.exports.contractAddr = contractAddress;
 module.exports.getWill = getWill;
 module.exports.newLastWill = newLastWill;
+module.exports.transferToWill = transferToWill;
 
 

@@ -36,23 +36,47 @@ router.post('/submitWill', async function (req, res) {
     // Get information from message
     let _email = req.body.email;
     let _addr = req.body.addr;
+
     let _benef = [];
     _benef.push(req.body.benef);
+    _benef.push(req.body.benef2);
+
     let _benefShare = [];
     _benefShare.push(req.body.share);
-    let _verif = req.body.verifier;
+    _benefShare.push(req.body.share2);
 
-    // DEBUG
-    console.log("This still works");
+    let _verif = req.body.verifier;
 
     // Submit will and process it
     await factory.newLastWill(_addr, 0, _email, 0, _benef, _benefShare, _verif);
 
-    // DEBUG
-    console.log("This does also work");
+    // Return back to services
+    res.redirect('/createWill');
+});
 
-    // TODO
-    // What to do with the address that newLastWill gives us? Should be displayed somewhere
+/* Handle will creation request */
+router.post('/getWill', async function (req, res) {
+    // Get information from message
+    let _addr = req.body.addr;
+
+    // Submit will and process it
+    const response = await factory.getWill(_addr);
+    console.log(response);
+
+    // Return back to services
+    res.redirect('/createWill');
+});
+
+/* Handle will creation request */
+router.post('/transferToWill', async function (req, res) {
+    // Get information from message
+    let _addr = req.body.addr;
+    let _value = req.body.value;
+
+    // Submit will and process it
+    await factory.transferToWill(_addr, _value);
+
+    console.log(await web3.eth.getBalance(await factory.getWill(_addr)));
 
     // Return back to services
     res.redirect('/createWill');
