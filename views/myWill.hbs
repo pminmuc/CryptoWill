@@ -1,0 +1,51 @@
+<div class="border-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Your Last Will</h3>
+                        <p> Information about your last will.</p>
+                        <div>
+                            {{#if hasLastWill}}
+                            <div class="row">
+                                <h4>Your most recent last will</h4>
+                            </div>
+                            <div>
+                            <!-- Replace all <p> with stuff from the contract -->
+                                <p>Name</p>
+                            </div>
+                            <div>
+                                <p>Address</p>
+                            </div>
+                            <div>
+                                <p>{{email}}</p>
+                            </div>
+                            <div>
+                                <p>{{benAccs}}</p>
+                            </div>
+                            <div>
+                                <p>{{verifier}}</p>
+                            </div>
+                            <div>
+                                <p>Verifiers address</p>
+                            </div>
+                             <div class="row">
+                                <button onclick="location.href = './createWill'" class="btn btn-outline-dark">Update last will here</button>
+                            </div>
+                            {{else}}
+                            <div class="row">
+                                <h4>This account is currently not set up with a last will yet</h4>
+                            </div>
+                            <div class="row">
+                                <button onclick="location.href = './createWill'" class="btn btn-outline-dark">Create new last will here</button>
+                            </div>
+                            {{/if}}
+                        </div>
+                        <!--Some content here-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
