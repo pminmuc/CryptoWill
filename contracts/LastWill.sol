@@ -4,12 +4,8 @@ contract LastWill {
     // Owner of the Contract and his email
     address payable public owner;
     string private email;
-    // Number of Verifications that this Contract received
-    uint256 private numbOfVer;
     // Bool if this contract has been verified yet.
     bool private verified;
-    // Verifier for the contract
-    Verifier witness;
     // Bool Is this Contract still valid?
     bool private valid;
     // time of validity?
@@ -18,11 +14,7 @@ contract LastWill {
     struct Beneficiary {
         address payable addBen;
         uint256 ratio;
-    }
-    // Struct for the verifiers.
-    struct Verifier {
-        address payable addVer;
-        bool verified;
+        bool isBenef;
     }
 
     // Mapping of bens
@@ -30,28 +22,42 @@ contract LastWill {
     // Addresses of the beneficiaries as key to access struct
     address[] private benAccs;
 
+    // Struct for the verifiers.
+    struct Verifier {
+        address payable addVer;
+        bool verifiedWill;
+        bool confirmedDeath;
+        bool isVerifier;
+    }
+    mapping (address => Verifier ) private witnesses;
+
+    address[] private witnessAccs;
+
     // Constructor for new Last Will
     constructor (
         string memory _email,
         uint256 _deadline,
         address[] memory _benAccs,
         uint256[] memory _ratio,
-        address payable _verifier
+        address[] memory _witnessAccs
     ) public {
         owner = msg.sender;
         email = _email;
-        numbOfVer = 0;
         valid = true;
         verified = false;
         deadline = now + _deadline * 1 minutes;
 
         for (uint i = 0; i < _benAccs.length; i++) {
             benAccs.push(_benAccs[i]);
-            ben[benAccs[i]] = Beneficiary(address(uint160(_benAccs[i])), _ratio[i]);
+            ben[benAccs[i]] = Beneficiary(address(uint160(_benAccs[i])), _ratio[i], true);
         }
 
+        for (uint i = 0; i < _witnessAccs.length; i++) {
+            witnessAccs.push(_witnessAccs[i]);
+            witnesses[witnessAccs[i]] = Verifier(address(uint160(witnessAccs[i])), false, false, true);
+        }
         // Change later when adding more Witnesses.
-        witness = Verifier(_verifier, false);
+        // witness = Verifier(_verifier, false, false);
     }
 
     //
@@ -72,19 +78,25 @@ contract LastWill {
 
     // Modifier that requires sender to be a beneficiary.
     modifier onlyBeneficiary() {
-        bool isBenef = false;
-        for (uint i = 0; i < benAccs.length; i++) {
-            if (msg.sender == benAccs[i]) {
-                isBenef = true;
-            }
-        }
-        require(isBenef);
+        require(ben[msg.sender].isBenef == true);
         _;
     }
 
     // Modifier that requires sender to be a verifier.
     modifier onlyVerifier() {
-        require(msg.sender == witness.addVer);
+        require(witnesses[msg.sender].isVerifier == true);
+        _;
+    }
+
+    //Check if all Witnesses confirmed the death of the person
+    modifier afterDeath() {
+        bool isDead = false;
+        for(uint i = 0; i < witnessAccs.length; i++) {
+            if(witnesses[witnessAccs[i]].confirmedDeath) {
+                isDead = true;
+            }
+        }
+        require(isDead);
         _;
     }
 
@@ -96,11 +108,16 @@ contract LastWill {
         emit Received(msg.sender, msg.value);
     }
 
-    function verify() onlyVerifier public {
-
+    // Verify Will
+    function verifyWill() onlyVerifier public {
+        witnesses[msg.sender].verifiedWill = true;
+    }
+    // Verify Death
+    function confirmDeath() onlyVerifier public {
+        witnesses[msg.sender].confirmedDeath = true;
     }
 
-    function inherit() onlyBeneficiary afterVerification public {
+    function inherit() onlyBeneficiary afterVerification afterDeath public {
         address payable benef = msg.sender;
         uint256 inheritance = 0;
         uint256 share = ben[address(benef)].ratio;
@@ -127,9 +144,6 @@ contract LastWill {
         return email;
     }
 
-    function getNumbOfVer() view public returns(uint256) {
-        return numbOfVer;
-    }
 
     function getVerified() view public returns(bool) {
         return verified;
@@ -147,6 +161,9 @@ contract LastWill {
         return benAccs;
     }
 
+    function getWitnesses() view public returns(address[] memory) {
+        return witnessAccs;
+    }
     //
     // EVENTS
     //

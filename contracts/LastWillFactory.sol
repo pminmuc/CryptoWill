@@ -18,7 +18,7 @@ contract LastWillFactory {
         uint256 _deadline,
         address[] memory _benAccs,
         uint256[] memory _ratio,
-        address payable _verifier
+        address[] memory _verifier
     ) payable public returns(address will) {
         // Create new will.
         will = address(new LastWill(_email, _deadline, _benAccs, _ratio, _verifier));
