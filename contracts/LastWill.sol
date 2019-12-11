@@ -44,8 +44,9 @@ contract LastWill {
         valid = true;
         verified = false;
         deadline = now + _deadline * 1 minutes;
+
         for (uint i = 0; i < _benAccs.length; i++) {
-            benAccs[i] = _benAccs[i];
+            benAccs.push(_benAccs[i]);
             ben[benAccs[i]] = Beneficiary(address(uint160(_benAccs[i])), _ratio[i]);
         }
 
