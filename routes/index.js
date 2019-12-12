@@ -53,7 +53,7 @@ router.post('/refreshWill', async function (req, res, next) {
     let userAddr = req.body.refreshAddr;
     console.log("refreshWill Address: ")
     console.log(userAddr);
-
+    let hasLastWill = await factory.hasLastWill(userAddr);
     let will = await factory.getWillInfo(userAddr);
     console.log(will);
 
@@ -67,7 +67,7 @@ router.post('/refreshWill', async function (req, res, next) {
     let witness = witnessAccs[0];
     console.log(witness);
 
-    res.render('myWill', {title: "MyWill", email:email, benAccs:benAccs, validity:validity, witness:witness});
+    res.render('myWill', {title: "MyWill",Address:userAddr, email:email, benAccs:benAccs, verifier:validity, witness:witness, hasLastWill:hasLastWill});
 });
 
 

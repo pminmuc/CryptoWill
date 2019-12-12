@@ -7,30 +7,33 @@
                         <h3>Your Last Will</h3>
                         <p> Information about your last will.</p>
                         <div>
-
+                            {{#if hasLastWill}}
                                 <div class="row">
                                     <h4>Your most recent last will</h4>
                                 </div>
                                 <div>
                                     <!-- Replace all <p> with stuff from the contract -->
-                                    <p>{{witness}}</p>
+                                    <p>Name</p>
                                 </div>
                                 <div>
-                                    <p>Address</p>
+                                    <p>{{Address}}</p>
                                 </div>
                                 <div>
+                                    <p>EMAIL: </p>
                                     <p>{{email}}</p>
                                 </div>
                                 <div>
+                                    <p>BEN ACCS</p>
                                     <p>{{benAccs}}</p>
                                 </div>
                                 <div>
+                                    <p>is Verified:</p>
                                     <p>{{verifier}}</p>
                                 </div>
                                 <div>
                                     <p>Verifiers address</p>
                                 </div>
-
+                            {{else}}
                                 <div class="row">
                                     <form action="/refreshWill" method="post">
                                         <div class="row form-group">
@@ -53,7 +56,7 @@
                                 <div class="row">
                                     <button onclick="location.href = './createWill'" class="btn btn-outline-dark">Create new last will here</button>
                                 </div>
-
+                            {{/if}}
                         </div>
                         <!--Some content here-->
                     </div>
