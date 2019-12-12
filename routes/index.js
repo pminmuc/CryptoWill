@@ -51,23 +51,31 @@ router.get('/myWill', async function (req, res, next) {
 
 router.post('/refreshWill', async function (req, res, next) {
     let userAddr = req.body.refreshAddr;
-    console.log("refreshWill Address: ")
     console.log(userAddr);
-    let hasLastWill = await factory.hasLastWill(userAddr);
-    let will = await factory.getWillInfo(userAddr);
-    console.log(will);
 
-    let email = will[0];
-    console.log(email);
-    let validity = will[1];
-    console.log(validity);
-    let benAccs = will[2];
-    console.log(benAccs);
-    let witnessAccs = will[3];
-    let witness = witnessAccs[0];
-    console.log(witness);
+    res.render('myWill', {title: "MyWill"});
+});
 
-    res.render('myWill', {title: "MyWill",Address:userAddr, email:email, benAccs:benAccs, verifier:validity, witness:witness, hasLastWill:hasLastWill});
+router.post('/witnessWill', async function (req, res, next) {
+    let addr = req.body.addr;
+    console.log(addr);
+
+    // Witness the will.
+    // await factory.witnessWill(addr);
+
+    // Provide some feedback to show that verification was successful?!
+    res.redirect('/witness');
+});
+
+router.post('/confirmDeath', async function (req, res, next) {
+   let addr = req.body.addr;
+   console.log(addr);
+
+   // Send death confirmation
+   //  await factory.pronounceDeath(addr, contractAddr);
+
+    // Provide feedback on successful death confirmation.
+    res.redirect('/witness');
 });
 
 
@@ -106,19 +114,18 @@ router.post('/refreshWill', async function (req, res, next) {
 router.post('/submitWill', async function (req, res) {
     // Get information from message
     let _email = req.body.email;
-    console.log(_email);
     let _addr = req.body.addr;
-    // Works with different accounts only, getting Revert message otherwise!
+
     let _benef = [];
-    console.log(_benef);
-     _benef.push(req.body.benef);
-     _benef.push(req.body.benef2);
-    console.log(_benef);
+    _benef.push(req.body.benef);
+    _benef.push(req.body.benef2);
+
     let _benefShare = [];
     _benefShare.push(req.body.share);
     _benefShare.push(req.body.share2);
 
-    let _verif = [req.body.verifier];
+    let _verif = []
+    _verif.push(req.body.verifier);
 
     // Submit will and process it
     await factory.newLastWill(_addr, 0, _email, 0, _benef, _benefShare, _verif);

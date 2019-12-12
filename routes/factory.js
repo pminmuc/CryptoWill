@@ -50,6 +50,14 @@ async function getWillInfo(addr) {
     return will;
 }
 
+async function witnessWill(witnessAddr) {
+    await lastWillFactory.methods.witnessWill().call({from: witnessAddr});
+}
+
+async function pronounceDeath(witnessAddr, contractAddr) {
+    await lastWillFactory.methods.pronounceDeath(contractAddr).call({from: witnessAddr});
+}
+
 // Export all the necessary functions and attributes.
 module.exports.contractAddr = contractAddress;
 module.exports.getWill = getWill;
@@ -57,5 +65,7 @@ module.exports.newLastWill = newLastWill;
 module.exports.transferToWill = transferToWill;
 module.exports.hasLastWill = hasLastWill;
 module.exports.getWillInfo = getWillInfo;
+module.exports.witnessWill = witnessWill;
+module.exports.pronounceDeath = pronounceDeath;
 
 
