@@ -1,7 +1,7 @@
 function loadMyWill() {
     let accountAddress = document.getElementById("myHiddenAccount").value;
     console.log(accountAddress);
-    $.get('/myWill/' + accountAddress);
+    $.get('myWill/' + accountAddress);
 }
 
 function loadAbout() {

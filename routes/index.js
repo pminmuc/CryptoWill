@@ -42,42 +42,51 @@ router.get('/witness', async function (req, res, next) {
     let verifier = "Verifier"
 
     // Open witness page
-    res.render('witness', {isWitness: isWitness, email:email, benAccs: benAccs, verifier: verifier});
+    res.render('witness', {isWitness: isWitness, email: email, benAccs: benAccs, verifier: verifier});
 });
 
 router.get('/myWill', async function (req, res, next) {
+    res.render('myWill', {title: "MyWill"});
+});
 
+router.post('/refreshWill', async function (req, res, next) {
+    let userAddr = req.body.refreshAddr;
+    console.log(userAddr);
+
+    res.render('myWill', {title: "MyWill"});
 });
 
 
-/* GET myWill page. */
-router.get('/myWill/:userAddr', async function (req, res, next) {
-    // Get users account address from the parameters.
-    let addr = req.params.userAddr;
-    let hasLastWill = false;
-
-    // Check if there is a last will associated with the account.
-    if (await factory.hasLastWill(addr)) {
-        hasLastWill = true;
-    }
-
-    // DEBUG
-    console.log("Has last will: " + hasLastWill);
-
-    // Get stuff from contract
-    let email = "Email";
-    let benAccs = "BenAccs";
-    let verifier = "Verifier";
-
-
-    // Open create Will page
-    res.render('myWill', {
-        hasLastWill: hasLastWill,
-        email: email,
-        benAccs: benAccs,
-        verifier: verifier
-    });
-});
+// /* GET myWill page. */
+// router.get('/myWill/:userAddr', async function (req, res, next) {
+//     // Get users account address from the parameters.
+//     let addr = req.params.userAddr;
+//     let hasLastWill = false;
+//
+//     // Check if there is a last will associated with the account.
+//     if (await factory.hasLastWill(addr)) {
+//         hasLastWill = true;
+//     }
+//
+//     // DEBUG
+//     console.log("Has last will: " + hasLastWill);
+//
+//     // Get stuff from contract
+//     let email = "Email";
+//     let benAccs = "BenAccs";
+//     let verifier = "Verifier";
+//
+//
+//     // Return back to services
+//     res.render('myWill');
+//
+//     res.render('myWill', {
+//         //hasLastWill: hasLastWill,
+//         //email: email,
+//         //benAccs: benAccs,
+//         //verifier: verifier
+//     });
+// });
 
 /* Handle will creation request */
 router.post('/submitWill', async function (req, res) {
