@@ -56,6 +56,28 @@ router.post('/refreshWill', async function (req, res, next) {
     res.render('myWill', {title: "MyWill"});
 });
 
+router.post('/witnessWill', async function (req, res, next) {
+    let addr = req.body.addr;
+    console.log(addr);
+
+    // Witness the will.
+    // await factory.witnessWill(addr);
+
+    // Provide some feedback to show that verification was successful?!
+    res.redirect('/witness');
+});
+
+router.post('/confirmDeath', async function (req, res, next) {
+   let addr = req.body.addr;
+   console.log(addr);
+
+   // Send death confirmation
+   //  await factory.pronounceDeath(addr, contractAddr);
+
+    // Provide feedback on successful death confirmation.
+    res.redirect('/witness');
+});
+
 
 // /* GET myWill page. */
 // router.get('/myWill/:userAddr', async function (req, res, next) {

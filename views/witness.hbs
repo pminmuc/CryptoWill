@@ -31,9 +31,31 @@
                                 <p>Verifiers address</p>
                             </div>
                              <div class="row">
-                                 <!-- Add function to onCLick -->
-                                <button onclick="location.href = './createWill'" class="btn btn-outline-dark"> This person is dead</button>
-                                <button onclick="location.href = './createWill'" class="btn btn-outline-dark"> Confirm this will</button>
+<!--                                 Which address should we pass here. The witness' or the contract's?-->
+                                 <form action="/witnessWill" method="post">
+                                 <div class="row form-group">
+                                     <div class="col-md-12">
+                                         <label class="sr-only" for="addr">Addr</label>
+                                         <input type="hidden" id="verifyAddr" name="addr" class="form-control"
+                                                placeholder="Your account address">
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                     <input type="submit" value="Witness this will" class="btn btn-outline-dark">
+                                 </div>
+                                 </form>
+                                 <form action="/confirmDeath" method="post">
+                                     <div class="row form-group">
+                                         <div class="col-md-12">
+                                             <label class="sr-only" for="addr">Addr</label>
+                                             <input type="hidden" id="deathAddr" name="addr" class="form-control"
+                                                    placeholder="Your account address">
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                         <input type="submit" value="Confirm testators death" class="btn btn-outline-dark">
+                                     </div>
+                                 </form>
                             </div>
                             {{else}}
                             <div class="row">
