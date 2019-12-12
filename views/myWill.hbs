@@ -7,13 +7,13 @@
                         <h3>Your Last Will</h3>
                         <p> Information about your last will.</p>
                         <div>
-                            {{#if hasLastWill}}
+
                                 <div class="row">
                                     <h4>Your most recent last will</h4>
                                 </div>
                                 <div>
                                     <!-- Replace all <p> with stuff from the contract -->
-                                    <p>Name</p>
+                                    <p>{{witness}}</p>
                                 </div>
                                 <div>
                                     <p>Address</p>
@@ -30,7 +30,7 @@
                                 <div>
                                     <p>Verifiers address</p>
                                 </div>
-                            {{else}}
+
                                 <div class="row">
                                     <form action="/refreshWill" method="post">
                                         <div class="row form-group">
@@ -38,6 +38,7 @@
                                                 <label class="sr-only" for="addr">Addr</label>
                                                 <input type="text" id="refreshAddr" name="refreshAddr" class="form-control"
                                                        placeholder="Your account address">
+
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -52,7 +53,7 @@
                                 <div class="row">
                                     <button onclick="location.href = './createWill'" class="btn btn-outline-dark">Create new last will here</button>
                                 </div>
-                            {{/if}}
+
                         </div>
                         <!--Some content here-->
                     </div>

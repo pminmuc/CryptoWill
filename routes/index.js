@@ -51,9 +51,23 @@ router.get('/myWill', async function (req, res, next) {
 
 router.post('/refreshWill', async function (req, res, next) {
     let userAddr = req.body.refreshAddr;
+    console.log("refreshWill Address: ")
     console.log(userAddr);
 
-    res.render('myWill', {title: "MyWill"});
+    let will = await factory.getWillInfo(userAddr);
+    console.log(will);
+
+    let email = will[0];
+    console.log(email);
+    let validity = will[1];
+    console.log(validity);
+    let benAccs = will[2];
+    console.log(benAccs);
+    let witnessAccs = will[3];
+    let witness = witnessAccs[0];
+    console.log(witness);
+
+    res.render('myWill', {title: "MyWill", email:email, benAccs:benAccs, validity:validity, witness:witness});
 });
 
 
