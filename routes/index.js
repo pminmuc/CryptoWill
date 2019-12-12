@@ -92,17 +92,19 @@ router.post('/refreshWill', async function (req, res, next) {
 router.post('/submitWill', async function (req, res) {
     // Get information from message
     let _email = req.body.email;
+    console.log(_email);
     let _addr = req.body.addr;
-
+    // Works with different accounts only, getting Revert message otherwise!
     let _benef = [];
-    _benef.push(req.body.benef);
-    _benef.push(req.body.benef2);
-
+    console.log(_benef);
+     _benef.push(req.body.benef);
+     _benef.push(req.body.benef2);
+    console.log(_benef);
     let _benefShare = [];
     _benefShare.push(req.body.share);
     _benefShare.push(req.body.share2);
 
-    let _verif = req.body.verifier;
+    let _verif = [req.body.verifier];
 
     // Submit will and process it
     await factory.newLastWill(_addr, 0, _email, 0, _benef, _benefShare, _verif);

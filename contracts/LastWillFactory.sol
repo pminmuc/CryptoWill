@@ -8,6 +8,9 @@ contract LastWillFactory {
     // Store all the wills that have been created.
     mapping(address => address) wills;
 
+    // Mapping from Beneficiaries to wills that are stored
+    mapping(address => address) benWills;
+
     // Returns true if account is in the mapping.
     function hasLastWill() public view returns(bool) {
         if (address(wills[msg.sender]) != address(0)) {
@@ -20,7 +23,17 @@ contract LastWillFactory {
     function getWill() public view returns(address) {
         return wills[msg.sender];
     }
-
+    // Returns the will to a specific Beneficiary
+    function getBenWill() public view returns(address) {
+        return benWills[msg.sender];
+    }
+    // DOes the Validator has a will to validate???
+    function hasValWill() public view returns(bool) {
+        if (address(benWills[msg.sender]) != address(0)) {
+            return true;
+        }
+        return false;
+    }
     // Returns information about the will.
     // Only call this when sender has a will.
     function getWillInfo() public view returns(string memory, bool, address[] memory, address[] memory) {
@@ -41,6 +54,10 @@ contract LastWillFactory {
     ) payable public returns(address will) {
         // Create new will.
         will = address(new LastWill(_email, _deadline, _benAccs, _ratio, _verifier));
+
+        for(uint i = 0; i < _benAccs.length; i++) {
+            benWills[_benAccs[i]] = will;
+        }
 
         // Add will to sender will.
         wills[msg.sender] = address(will);
