@@ -41,19 +41,34 @@ router.get('/witness', async function (req, res, next) {
     let benAccs = "BenAccs"
     let verifier = "Verifier"
 
-    // Open create Will page
+    // Open witness page
     res.render('witness', {isWitness: isWitness, email:email, benAccs: benAccs, verifier: verifier});
 });
 
+router.get('/myWill', async function (req, res, next) {
+
+});
+
+
 /* GET myWill page. */
 router.get('/myWill/:userAddr', async function (req, res, next) {
-    let acc = req.params.userAddr;
-    
-    //Get stuff from contract
-    let hasLastWill = true;
+    // Get users account address from the parameters.
+    let addr = req.params.userAddr;
+    let hasLastWill = false;
+
+    // Check if there is a last will associated with the account.
+    if (await factory.hasLastWill(addr)) {
+        hasLastWill = true;
+    }
+
+    // DEBUG
+    console.log("Has last will: " + hasLastWill);
+
+    // Get stuff from contract
     let email = "Email";
     let benAccs = "BenAccs";
     let verifier = "Verifier";
+
 
     // Open create Will page
     res.render('myWill', {

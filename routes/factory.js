@@ -40,10 +40,22 @@ async function transferToWill(addr, value) {
     await web3.eth.sendTransaction({from: addr, to: willAddr, value: _value});
 }
 
+async function hasLastWill(addr) {
+    let willFound = await lastWillFactory.methods.hasLastWill().call({from: addr});
+    return willFound;
+}
+
+async function getWillInfo(addr) {
+    let will = await lastWillFactory.methods.getWillInfo().call({from: addr});
+    return will;
+}
+
 // Export all the necessary functions and attributes.
 module.exports.contractAddr = contractAddress;
 module.exports.getWill = getWill;
 module.exports.newLastWill = newLastWill;
 module.exports.transferToWill = transferToWill;
+module.exports.hasLastWill = hasLastWill;
+module.exports.getWillInfo = getWillInfo;
 
 

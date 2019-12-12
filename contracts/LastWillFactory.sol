@@ -8,9 +8,28 @@ contract LastWillFactory {
     // Store all the wills that have been created.
     mapping(address => address) wills;
 
+    // Returns true if account is in the mapping.
+    function hasLastWill() public view returns(bool) {
+        if (address(wills[msg.sender]) != address(0)) {
+            return true;
+        }
+        return false;
+    }
+
     // Returns the will to a specific user address.
     function getWill() public view returns(address) {
         return wills[msg.sender];
+    }
+
+    // Returns information about the will.
+    // Only call this when sender has a will.
+    function getWillInfo() public view returns(string memory, bool, address[] memory, address[] memory) {
+        LastWill will = LastWill(address(uint160(wills[msg.sender])));
+        string memory _email = will.getEmail();
+        bool _verified = will.getVerified();
+        address[] memory _benAccs = will.getBenAccs();
+        address[] memory _witnAccs = will.getWitnesses();
+        return(_email, _verified, _benAccs, _witnAccs);
     }
 
     function newLastWill(
