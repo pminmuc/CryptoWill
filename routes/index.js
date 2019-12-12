@@ -102,7 +102,8 @@ router.post('/submitWill', async function (req, res) {
     _benefShare.push(req.body.share);
     _benefShare.push(req.body.share2);
 
-    let _verif = req.body.verifier;
+    let _verif = []
+    _verif.push(req.body.verifier);
 
     // Submit will and process it
     await factory.newLastWill(_addr, 0, _email, 0, _benef, _benefShare, _verif);
