@@ -34,7 +34,7 @@ router.get('/createWill', async function (req, res, next) {
 /* GET witness page. */
 router.get('/witness', async function (req, res, next) {
 
-    //Get stuff from blockchain contract
+    // Get stuff from blockchain contract
     // IMPLEMENT
     let isWitness = true;
     let email = "Email"
