@@ -1,119 +1,127 @@
-<div class="border-bottom">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3>Create your last will</h3>
-                        <!-- Adjust action here-->
-                        <form action="/submitWill" method="post">
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="name">Name</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Your name">
+<div class="h-100 container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row h-50">
+                <div class="col-md-6" id="willCreation">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <h3>Create your last will</h3>
+                            <form action="/submitWill" method="post">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="name">Name</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Your name">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="email">Email</label>
-                                    <input type="email" name="email" class="form-control"
-                                           placeholder="Your email address">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="email">Email</label>
+                                        <input type="email" name="email" class="form-control"
+                                               placeholder="Your email address">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="addr">Addr</label>
-                                    <input type="text" id="createAddr" name="addr" class="form-control"
-                                           placeholder="Your account address">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="addr">Addr</label>
+                                        <input type="text" id="createAddr" name="addr" class="form-control"
+                                               placeholder="Your account address">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="benef">Beneficiary</label>
-                                    <input type="text" name="benef" class="form-control"
-                                           placeholder="Beneficiary address">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="benef">Beneficiary</label>
+                                        <input type="text" name="benef" class="form-control"
+                                               placeholder="Beneficiary address">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="share">Share</label>
-                                    <input type="text" name="share" class="form-control"
-                                           placeholder="Beneficiaries share">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="share">Share</label>
+                                        <input type="text" name="share" class="form-control"
+                                               placeholder="Beneficiaries share">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="benef2">Beneficiary</label>
-                                    <input type="text" name="benef2" class="form-control"
-                                           placeholder="Beneficiary2 address">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="benef2">Beneficiary</label>
+                                        <input type="text" name="benef2" class="form-control"
+                                               placeholder="Beneficiary2 address">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="share2">Share</label>
-                                    <input type="text" name="share2" class="form-control"
-                                           placeholder="Beneficiaries2 share">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="share2">Share</label>
+                                        <input type="text" name="share2" class="form-control"
+                                               placeholder="Beneficiaries2 share">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="verifier">Verifier</label>
-                                    <input type="text" name="verifier" class="form-control"
-                                           placeholder="Verfifiers address">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="verifier">Verifier</label>
+                                        <input type="text" name="verifier" class="form-control"
+                                               placeholder="Verfifiers address">
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!--                            <div class="row form-group">-->
-                            <!--                                <div class="col-md-12">-->
-                            <!--                                    <label class="sr-only" for="deadswitch">Days to cancel</label>-->
-                            <!--                                    <input type="text" id="deadswitch" class="form-control" placeholder="Days to cancel">-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-
-                            <div class="form-group">
-                                <input type="submit" value="Submit" class="btn btn-outline-dark">
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <input type="submit" value="Submit" class="btn btn-outline-dark">
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <h3>Some information on the form goes here.</h3>
-                        <form action="/getWill" method="post">
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="addr">Addr</label>
-                                    <input type="text" id="getAddr" name="addr" class="form-control"
-                                           placeholder="Your account address">
+                </div>
+                <div class="col-md-6" id="otherServices">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <h3>Send Ether to your will.</h3>
+                            <form action="/transferToWill" method="post">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="addr">Addr</label>
+                                        <input type="text" id="transferAddr" name="addr" class="form-control"
+                                               placeholder="Your account address">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Get Info" class="btn btn-outline-dark">
-                            </div>
-                        </form>
-                        <form action="/transferToWill" method="post">
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="addr">Addr</label>
-                                    <input type="text" id="getAddr" name="addr" class="form-control"
-                                           placeholder="Your account address">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="value">Amount</label>
+                                        <input type="text" name="value" class="form-control" placeholder="Amount (ETH)">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="sr-only" for="value">Value</label>
-                                    <input type="text" name="value" class="form-control" placeholder="Amount">
+                                <div class="form-group">
+                                    <input type="submit" value="Send to Will" class="btn btn-outline-dark">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Send to Will" class="btn btn-outline-dark">
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <h3>Withdraw from your will.</h3>
+                            <form action="/withdrawFromWill" method="post">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="addr">Addr</label>
+                                        <input type="text" id="withdrawAddr" name="addr" class="form-control"
+                                               placeholder="Your account address">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="value">Amount</label>
+                                        <input type="text" name="value" class="form-control" placeholder="Amount (ETH)">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Send to Will" class="btn btn-outline-dark">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

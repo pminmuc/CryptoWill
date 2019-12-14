@@ -182,8 +182,22 @@ router.post('/transferToWill', async function (req, res) {
     let _addr = req.body.addr;
     let _value = req.body.value;
 
-    // Submit will and process it
+    // Process fund transmission
     await factory.transferToWill(_addr, _value);
+
+    console.log(await web3.eth.getBalance(await factory.getWill(_addr)));
+
+    // Return back to services
+    res.redirect('/createWill');
+});
+
+router.post('/withdrawFromWill', async function (req, res) {
+    // Get information from message
+    let _addr = req.body.addr;
+    let _value = req.body.value;
+
+    // Process fund transmission
+    await factory.withdrawFromWill(_addr, _value);
 
     console.log(await web3.eth.getBalance(await factory.getWill(_addr)));
 

@@ -37,13 +37,14 @@ contract LastWill {
 
     // Constructor for new Last Will
     constructor (
+        address payable _owner,
         string memory _email,
         uint256 _deadline,
         address[] memory _benAccs,
         uint256[] memory _ratio,
         address[] memory _witnessAccs
     ) public {
-        owner = msg.sender;
+        owner = _owner;
         email = _email;
         valid = true;
         verified = false;
@@ -169,9 +170,15 @@ contract LastWill {
 
     }
 
-    function withdraw() onlyOwner public {
+    // Used to withdraw money from the contract.
+    function withdraw(uint256 amount) onlyOwner public payable{
+        uint256 _amount = amount * 1 ether;
+        if (_amount > address(this).balance) {
 
-
+        }
+        else {
+            owner.transfer(_amount);
+        }
     }
 
     //

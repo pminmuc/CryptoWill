@@ -53,7 +53,7 @@ contract LastWillFactory {
         address[] memory _verifier
     ) payable public returns(address will) {
         // Create new will.
-        will = address(new LastWill(_email, _deadline, _benAccs, _ratio, _verifier));
+        will = address(new LastWill(msg.sender, _email, _deadline, _benAccs, _ratio, _verifier));
 
         for(uint i = 0; i < _verifier.length; i++) {
             verWills[_verifier[i]] = will;

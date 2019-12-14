@@ -89,6 +89,21 @@ async function confirmDeath(witnessAddr) {
     await lastWill.methods.confirmDeath().send({from: witnessAddr, value: 1, gas: 300000});
 }
 
+
+// Used to withdraw money from the will
+// Param: Account address of user, amount to withdraw
+// Return: Nothing.
+async function withdrawFromWill(userAddr, amount) {
+    // Get contract address
+    let _contractAddr = await getWill(userAddr);
+
+    // Get contract object.
+    var lastWill = await new web3.eth.Contract(lastWillAbi, _contractAddr);
+
+    // Withdraw amount from will
+    await lastWill.methods.withdraw(amount).send({from: userAddr});
+}
+
 // Export all the necessary functions and attributes.
 module.exports.factoryAddress = factoryAddress;
 module.exports.getWill = getWill;
@@ -100,5 +115,6 @@ module.exports.verifyWill = verifyWill;
 module.exports.confirmDeath = confirmDeath;
 module.exports.hasVerWill = hasVerWill;
 module.exports.getVerWill = getVerWill;
+module.exports.withdrawFromWill = withdrawFromWill;
 
 
