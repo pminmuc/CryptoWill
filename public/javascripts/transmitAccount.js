@@ -1,7 +1,15 @@
-function loadMyWill() {
+async function loadMyWill() {
     let accountAddress = document.getElementById("myHiddenAccount").value;
     console.log(accountAddress);
-    $.get('myWill/' + accountAddress);
+
+    // Send post request with accountAddress
+    $.post('myWill/' + accountAddress, function (req, res, next) {
+        let json = req;
+        let _email = "email";
+        let value = json[_email];
+        console.log(value);
+        console.log(req);
+    });
 }
 
 function loadAbout() {
