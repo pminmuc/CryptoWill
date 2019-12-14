@@ -56,12 +56,11 @@ router.post('/refreshWill', async function (req, res, next) {
     res.render('myWill', {title: "MyWill"});
 });
 
-router.post('/verifyWill', async function (req, res, next) {
-    let addr = req.body.addr;
-    console.log(addr);
+router.post('/verifyWill/:userAddr', async function (req, res, next) {
+    let userAddr = req.params.userAddr;
 
     // Verify the will.
-    await factory.verifyWill(addr);
+    await factory.verifyWill(userAddr);
 
     // Provide some feedback to show that verification was successful?!
     res.redirect('/witness');

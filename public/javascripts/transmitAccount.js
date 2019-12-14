@@ -1,6 +1,5 @@
 function loadMyWill() {
     let accountAddress = document.getElementById("myHiddenAccount").value;
-    console.log(accountAddress);
 
     // Send post request with accountAddress
     $.post('myWill/' + accountAddress, function (req, res, next) {
@@ -45,19 +44,18 @@ function loadMyWill() {
 
 function loadAbout() {
     let accountAddress = document.getElementById("myHiddenAccount").value;
-    console.log(accountAddress);
+
     $.get('/about/' + accountAddress);
 }
 
 function loadCreateWill() {
     let accountAddress = document.getElementById("myHiddenAccount").value;
-    console.log(accountAddress);
+
     document.getElementById("createAddr").value = accountAddress;
 }
 
 function loadWitness() {
     let accountAddress = document.getElementById("myHiddenAccount").value;
-    console.log(accountAddress);
 
     $.post('witness/' + accountAddress, function (req, res, next) {
         let json = req;
@@ -96,5 +94,13 @@ function loadWitness() {
             let html = "<h3>You dont currently have a will to verify</h3>";
             document.getElementById("willInformation").innerHTML = html;
         }
+    });
+}
+
+function verifyWill() {
+    let accountAddress = document.getElementById("myHiddenAccount").value;
+
+    $.post('verifyWill/' + accountAddress, function (req, res, next) {
+
     });
 }

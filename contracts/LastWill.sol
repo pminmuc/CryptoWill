@@ -114,8 +114,11 @@ contract LastWill {
     }
 
     // Verify Will by one Verifier / Witness
-    function verifyWill() onlyWitness public {
+    function verifyWill() public payable {
+        // Set verified variable in verifier struct.
         witnesses[msg.sender].verifiedWill = true;
+
+        // Loop all verifiers of the contract and check if they have already verified.
         uint verifCounter = 0;
         for (uint i = 0; i < witnessAccs.length; i++) {
             if (witnesses[witnessAccs[i]].verifiedWill) {
@@ -124,10 +127,11 @@ contract LastWill {
                 require(false);
             }
         }
-//        if (verifCounter == witnessAccs.length) {
-//            verified = true;
-//        }
-        verified = true;
+
+        // If all have verified, set the contract as verified.
+        if (verifCounter == witnessAccs.length) {
+            verified = true;
+        }
     }
 
     // Verify Death by one Verifier / witness

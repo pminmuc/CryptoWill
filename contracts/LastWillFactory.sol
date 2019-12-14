@@ -35,12 +35,6 @@ contract LastWillFactory {
         return false;
     }
 
-    // Validates the given will if the sender is the verifier.
-    function verifyWill(address contractAddr) public {
-        require(verWills[msg.sender] == contractAddr);
-
-    }
-
     // Returns information about the will.
     function getWillInfo(address contractAddr) public view returns(string memory, bool, address[] memory, address[] memory) {
         LastWill will = LastWill(address(uint160(contractAddr)));

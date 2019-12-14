@@ -70,8 +70,14 @@ async function verifyWill(witnessAddr) {
     // Get contract object.
     var lastWill = await new web3.eth.Contract(lastWillAbi, _contractAddr);
 
+    console.log(await lastWill.methods.getEmail().call());
+    console.log(await lastWill.methods.getVerified().call());
+
+    console.log(_contractAddr);
+    console.log(witnessAddr);
+
     // Verify the will.
-    await lastWill.methods.verifyWill().call({from: witnessAddr});
+    await lastWill.methods.verifyWill().send({from: witnessAddr, value: 1, gas: 300000});
 }
 
 async function pronounceDeath(witnessAddr, contractAddr) {
