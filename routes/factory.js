@@ -3,21 +3,19 @@ var fs = require('fs');
 
 // Init web3 provider to communicate with local blockchain.
 var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-
 // Read contract abi
-var deployedContract = fs.readFileSync("./build/contracts/LastWillFactory.json", "UTF8")
-
+var deployedFactory = fs.readFileSync("./build/contracts/LastWillFactory.json", "UTF8");
+var deployedLastWill = fs.readFileSync("./build/contracts/LastWill.json", "UTF8");
 // Store parsed JSON
-var contractJSON = JSON.parse(deployedContract);
-
+var factoryJSON = JSON.parse(deployedFactory);
+var lastWillJSON = JSON.parse(deployedLastWill);
 // Store contract abi
-var contractAbi = contractJSON.abi;
-
+var factoryAbi = factoryJSON.abi;
+var lastWillAbi = lastWillJSON.abi;
 // Store contract address
-var contractAddress = contractJSON.networks[5777].address;
-
+var factoryAddress = factoryJSON.networks[5777].address;
 // Create contract object
-var lastWillFactory = new web3.eth.Contract(contractAbi, contractAddress);
+var lastWillFactory = new web3.eth.Contract(factoryAbi, factoryAddress);
 
 async function newLastWill(addr, value, email, deadline, benAccs, benRatios, verAcc) {
     const response = await lastWillFactory.methods.newLastWill(email, deadline, benAccs, benRatios, verAcc).send({from: addr, value: 1, gas: 6721000});
@@ -27,6 +25,11 @@ async function newLastWill(addr, value, email, deadline, benAccs, benRatios, ver
 
 async function getWill(addr) {
     let response = await lastWillFactory.methods.getWill().call({from: addr});
+    return response;
+}
+
+async function getVerWill(addr) {
+    let response = await lastWillFactory.methods.getVerWill().call({from: addr});
     return response;
 }
 
@@ -45,13 +48,30 @@ async function hasLastWill(addr) {
     return willFound;
 }
 
-async function getWillInfo(addr) {
-    let will = await lastWillFactory.methods.getWillInfo().call({from: addr});
+async function hasVerWill(addr) {
+    let willFound = await lastWillFactory.methods.hasVerWill().call({from: addr});
+    return willFound;
+}
+
+// Param: Address of the CONTRACT/LAST WILL
+// Return: information on a will
+async function getWillInfo(contractAddr) {
+    let will = await lastWillFactory.methods.getWillInfo(contractAddr).call();
     return will;
 }
 
-async function witnessWill(witnessAddr) {
-    await lastWillFactory.methods.witnessWill().call({from: witnessAddr});
+// Used to verify a will
+// Param: Account address of witness
+// Return: Nothing.
+async function verifyWill(witnessAddr) {
+    // Get contract address to verify
+    let _contractAddr = await getVerWill(witnessAddr);
+
+    // Get contract object.
+    var lastWill = await new web3.eth.Contract(lastWillAbi, _contractAddr);
+
+    // Verify the will.
+    await lastWill.methods.verifyWill().call({from: witnessAddr});
 }
 
 async function pronounceDeath(witnessAddr, contractAddr) {
@@ -59,13 +79,15 @@ async function pronounceDeath(witnessAddr, contractAddr) {
 }
 
 // Export all the necessary functions and attributes.
-module.exports.contractAddr = contractAddress;
+module.exports.factoryAddress = factoryAddress;
 module.exports.getWill = getWill;
 module.exports.newLastWill = newLastWill;
 module.exports.transferToWill = transferToWill;
 module.exports.hasLastWill = hasLastWill;
 module.exports.getWillInfo = getWillInfo;
-module.exports.witnessWill = witnessWill;
+module.exports.verifyWill = verifyWill;
 module.exports.pronounceDeath = pronounceDeath;
+module.exports.hasVerWill = hasVerWill;
+module.exports.getVerWill = getVerWill;
 
 

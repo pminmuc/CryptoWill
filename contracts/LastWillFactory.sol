@@ -28,16 +28,22 @@ contract LastWillFactory {
         return verWills[msg.sender];
     }
     // DOes the Validator has a will to validate???
-    function hasValWill() public view returns(bool) {
+    function hasVerWill() public view returns(bool) {
         if (address(verWills[msg.sender]) != address(0)) {
             return true;
         }
         return false;
     }
+
+    // Validates the given will if the sender is the verifier.
+    function verifyWill(address contractAddr) public {
+        require(verWills[msg.sender] == contractAddr);
+
+    }
+
     // Returns information about the will.
-    // Only call this when sender has a will.
-    function getWillInfo() public view returns(string memory, bool, address[] memory, address[] memory) {
-        LastWill will = LastWill(address(uint160(wills[msg.sender])));
+    function getWillInfo(address contractAddr) public view returns(string memory, bool, address[] memory, address[] memory) {
+        LastWill will = LastWill(address(uint160(contractAddr)));
         string memory _email = will.getEmail();
         bool _verified = will.getVerified();
         address[] memory _benAccs = will.getBenAccs();

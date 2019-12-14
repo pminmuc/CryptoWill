@@ -1,69 +1,20 @@
-<div class="border-bottom">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>For witnesses to a last will contract</h3>
-                        <p> Information about the last will you are witness to.</p>
-                        <div>
-                            {{#if isWitness}}
-                            <div class="row">
-                                <h4>This account is a witness to the following last will</h4>
+<div class="h-100 container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row h-50">
+                <div class="col-md-6" id="willInformation">
+                    <p> Information about your last will.</p>
+                </div>
+                <div class="col-md-6" id="willUtilities">
+                    <div class="row">
+                        <form action="/verifyWill" method="post">
+                            <div class="form-group">
+                                <input type="submit" value="Verify will" class="btn btn-outline-dark">
                             </div>
-                            <div>
-                            <!-- Replace all <p> with stuff from the contract -->
-                                <p>Name</p>
-                            </div>
-                            <div>
-                                <p>Address</p>
-                            </div>
-                            <div>
-                                <p>{{email}}</p>
-                            </div>
-                            <div>
-                                <p>{{benAccs}}</p>
-                            </div>
-                            <div>
-                                <p>{{verifier}}</p>
-                            </div>
-                            <div>
-                                <p>Verifiers address</p>
-                            </div>
-                             <div class="row">
-<!--                                 Which address should we pass here. The witness' or the contract's?-->
-                                 <form action="/witnessWill" method="post">
-                                 <div class="row form-group">
-                                     <div class="col-md-12">
-                                         <label class="sr-only" for="addr">Addr</label>
-                                         <input type="hidden" id="verifyAddr" name="addr" class="form-control"
-                                                placeholder="Your account address">
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <input type="submit" value="Witness this will" class="btn btn-outline-dark">
-                                 </div>
-                                 </form>
-                                 <form action="/confirmDeath" method="post">
-                                     <div class="row form-group">
-                                         <div class="col-md-12">
-                                             <label class="sr-only" for="addr">Addr</label>
-                                             <input type="hidden" id="deathAddr" name="addr" class="form-control"
-                                                    placeholder="Your account address">
-                                         </div>
-                                     </div>
-                                     <div class="form-group">
-                                         <input type="submit" value="Confirm testators death" class="btn btn-outline-dark">
-                                     </div>
-                                 </form>
-                            </div>
-                            {{else}}
-                            <div class="row">
-                                <h4>This account is currently not set as a witness</h4>
-                            </div>
-                            {{/if}}
+                        </form>
+                        <div class="col-md-4 offset-md-2">
+                            <button onclick="loadWitness()" class="btn btn-outline-dark">Refresh information</button>
                         </div>
-                        <!--Some content here-->
                     </div>
                 </div>
             </div>

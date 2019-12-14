@@ -56,12 +56,12 @@ router.post('/refreshWill', async function (req, res, next) {
     res.render('myWill', {title: "MyWill"});
 });
 
-router.post('/witnessWill', async function (req, res, next) {
+router.post('/verifyWill', async function (req, res, next) {
     let addr = req.body.addr;
     console.log(addr);
 
-    // Witness the will.
-    // await factory.witnessWill(addr);
+    // Verify the will.
+    await factory.verifyWill(addr);
 
     // Provide some feedback to show that verification was successful?!
     res.redirect('/witness');
@@ -82,7 +82,7 @@ router.post('/confirmDeath', async function (req, res, next) {
 /* GET myWill page. */
 router.post('/myWill/:userAddr', async function (req, res, next) {
     // Get users account address from the parameters.
-    let addr = req.params.userAddr;
+    let userAddr = req.params.userAddr;
     let _hasLastWill = false;
     let _contractAddr = "";
 
@@ -93,11 +93,11 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
     let _verAccs = "Verifier";
 
     // Check if there is a last will associated with the account.
-    if (await factory.hasLastWill(addr)) {
+    if (await factory.hasLastWill(userAddr)) {
         _hasLastWill = true;
-        _contractAddr = await factory.getWill(addr);
+        _contractAddr = await factory.getWill(userAddr);
 
-        let willInfo = await factory.getWillInfo(addr);
+        let willInfo = await factory.getWillInfo(_contractAddr);
         _email = willInfo[0];
         _verified = willInfo[1];
         _benAccs = willInfo[2];
@@ -117,6 +117,46 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
         verAccs: _verAccs
         }
         );
+});
+
+/* GET myWill page. */
+router.post('/witness/:userAddr', async function (req, res, next) {
+    // Get users account address from the parameters.
+    let userAddr = req.params.userAddr;
+    let _hasLastWill = false;
+    let _contractAddr = "";
+
+    // Get stuff from contract
+    let _email = "Email";
+    let _verified = false;
+    let _benAccs = "BenAccs";
+    let _verAccs = "Verifier";
+
+    // Check if there is a last will associated with the account.
+    if (await factory.hasVerWill(userAddr)) {
+        _hasLastWill = true;
+        _contractAddr = await factory.getVerWill(userAddr);
+
+        let willInfo = await factory.getWillInfo(_contractAddr);
+        _email = willInfo[0];
+        _verified = willInfo[1];
+        _benAccs = willInfo[2];
+        _verAccs = willInfo[3];
+    }
+
+    // DEBUG
+    console.log("Has last will to verify: " + _hasLastWill);
+
+    // Return will information to client.
+    await res.json({
+            hasLastWill: _hasLastWill,
+            email: _email,
+            verified: _verified,
+            contractAddr: _contractAddr,
+            benAccs: _benAccs,
+            verAccs: _verAccs
+        }
+    );
 });
 
 /* Handle will creation request */

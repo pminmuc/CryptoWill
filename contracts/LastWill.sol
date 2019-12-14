@@ -56,8 +56,6 @@ contract LastWill {
             witnessAccs.push(_witnessAccs[i]);
             witnesses[witnessAccs[i]] = Verifier(address(uint160(witnessAccs[i])), false, false, true);
         }
-        // Change later when adding more Witnesses.
-        // witness = Verifier(_verifier, false, false);
     }
 
     //
@@ -83,7 +81,7 @@ contract LastWill {
     }
 
     // Modifier that requires sender to be a verifier.
-    modifier onlyVerifier() {
+    modifier onlyWitness() {
         require(witnesses[msg.sender].isVerifier == true);
         _;
     }
@@ -91,8 +89,8 @@ contract LastWill {
     //Check if all Witnesses confirmed the death of the person
     modifier afterDeath() {
         uint deathCounter = 0;
-        for(uint i = 0; i < witnessAccs.length; i++) {
-            if(witnesses[witnessAccs[i]].confirmedDeath) {
+        for (uint i = 0; i < witnessAccs.length; i++) {
+            if (witnesses[witnessAccs[i]].confirmedDeath) {
                 deathCounter++;
             } else {
                 require(false);
@@ -116,11 +114,24 @@ contract LastWill {
     }
 
     // Verify Will by one Verifier / Witness
-    function verifyWill() onlyVerifier public {
+    function verifyWill() onlyWitness public {
         witnesses[msg.sender].verifiedWill = true;
+        uint verifCounter = 0;
+        for (uint i = 0; i < witnessAccs.length; i++) {
+            if (witnesses[witnessAccs[i]].verifiedWill) {
+                verifCounter++;
+            } else {
+                require(false);
+            }
+        }
+//        if (verifCounter == witnessAccs.length) {
+//            verified = true;
+//        }
+        verified = true;
     }
+
     // Verify Death by one Verifier / witness
-    function confirmDeath() onlyVerifier public {
+    function confirmDeath() onlyWitness public {
         witnesses[msg.sender].confirmedDeath = true;
     }
 

@@ -4,4 +4,5 @@ var LastWill = artifacts.require("LastWill");
 module.exports = async function(deployer) {
   // Deploy contracts.
   await deployer.deploy(LastWillFactory);
+
 };
