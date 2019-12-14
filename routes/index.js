@@ -83,28 +83,40 @@ router.post('/confirmDeath', async function (req, res, next) {
 router.post('/myWill/:userAddr', async function (req, res, next) {
     // Get users account address from the parameters.
     let addr = req.params.userAddr;
-    let hasLastWill = false;
+    let _hasLastWill = false;
+    let _contractAddr = "";
 
     // Get stuff from contract
-    let email = "Email";
-    let verified = false;
-    let benAccs = "BenAccs";
-    let verifier = "Verifier";
+    let _email = "Email";
+    let _verified = false;
+    let _benAccs = "BenAccs";
+    let _verAccs = "Verifier";
 
     // Check if there is a last will associated with the account.
     if (await factory.hasLastWill(addr)) {
-        hasLastWill = true;
+        _hasLastWill = true;
+        _contractAddr = await factory.getWill(addr);
 
         let willInfo = await factory.getWillInfo(addr);
-        email = willInfo[0];
-        verified = willInfo[1];
+        _email = willInfo[0];
+        _verified = willInfo[1];
+        _benAccs = willInfo[2];
+        _verAccs = willInfo[3];
     }
 
     // DEBUG
-    console.log("Has last will: " + hasLastWill);
+    console.log("Has last will: " + _hasLastWill);
 
     // Return will information to client.
-    await res.json({email: email, verified: verified});
+    await res.json({
+        hasLastWill: _hasLastWill,
+        email: _email,
+        verified: _verified,
+        contractAddr: _contractAddr,
+        benAccs: _benAccs,
+        verAccs: _verAccs
+        }
+        );
 });
 
 /* Handle will creation request */
