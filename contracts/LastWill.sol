@@ -8,6 +8,8 @@ contract LastWill {
     bool private verified;
     // Bool Is this Contract still valid?
     bool private valid;
+    // Bool is the testator confirmed as dead?
+    bool private deathConfirmed;
     // time of validity?
     uint256 private deadline;
     // Struct of the beneficiaries
@@ -86,20 +88,13 @@ contract LastWill {
         _;
     }
 
-    //Check if all Witnesses confirmed the death of the person
+    // Check if all Witnesses confirmed the death of the person
     modifier afterDeath() {
-        uint deathCounter = 0;
-        for (uint i = 0; i < witnessAccs.length; i++) {
-            if (witnesses[witnessAccs[i]].confirmedDeath) {
-                deathCounter++;
-            } else {
-                require(false);
-            }
-        }
-        require(deathCounter == witnessAccs.length);
+        require(deathConfirmed);
         _;
     }
-    //Check if the ratio is over 0, so function only can be called if ratio is valid
+
+    // Check if the ratio is over 0, so function only can be called if ratio is valid
     modifier ratioValid() {
         require(ben[msg.sender].ratio > 0);
         _;
@@ -135,8 +130,24 @@ contract LastWill {
     }
 
     // Verify Death by one Verifier / witness
-    function confirmDeath() onlyWitness public {
+    function confirmDeath() onlyWitness public payable {
+        // Set verified variable in verifier struct.
         witnesses[msg.sender].confirmedDeath = true;
+
+        // Loop all verifiers of the contract and check if they have already verified.
+        uint deathCounter = 0;
+        for (uint i = 0; i < witnessAccs.length; i++) {
+            if (witnesses[witnessAccs[i]].confirmedDeath) {
+                deathCounter++;
+            } else {
+                require(false);
+            }
+        }
+
+        // If all have verified, set the contract as verified.
+        if (deathCounter == witnessAccs.length) {
+            deathConfirmed = true;
+        }
     }
 
     // Inherit function
@@ -170,6 +181,9 @@ contract LastWill {
         return email;
     }
 
+    function getDeathConfirmed() view public returns(bool) {
+        return deathConfirmed;
+    }
 
     function getVerified() view public returns(bool) {
         return verified;

@@ -53,6 +53,7 @@ async function hasVerWill(addr) {
     return willFound;
 }
 
+// Used to get all the information about a will.
 // Param: Address of the CONTRACT/LAST WILL
 // Return: information on a will
 async function getWillInfo(contractAddr) {
@@ -70,18 +71,22 @@ async function verifyWill(witnessAddr) {
     // Get contract object.
     var lastWill = await new web3.eth.Contract(lastWillAbi, _contractAddr);
 
-    console.log(await lastWill.methods.getEmail().call());
-    console.log(await lastWill.methods.getVerified().call());
-
-    console.log(_contractAddr);
-    console.log(witnessAddr);
-
     // Verify the will.
     await lastWill.methods.verifyWill().send({from: witnessAddr, value: 1, gas: 300000});
 }
 
-async function pronounceDeath(witnessAddr, contractAddr) {
-    await lastWillFactory.methods.pronounceDeath(contractAddr).call({from: witnessAddr});
+// Used to confirm death of testator
+// Param: Account address of witness
+// Return: Nothing.
+async function confirmDeath(witnessAddr) {
+    // Get contract address to verify
+    let _contractAddr = await getVerWill(witnessAddr);
+
+    // Get contract object.
+    var lastWill = await new web3.eth.Contract(lastWillAbi, _contractAddr);
+
+    // Confirm testator as dead.
+    await lastWill.methods.confirmDeath().send({from: witnessAddr, value: 1, gas: 300000});
 }
 
 // Export all the necessary functions and attributes.
@@ -92,7 +97,7 @@ module.exports.transferToWill = transferToWill;
 module.exports.hasLastWill = hasLastWill;
 module.exports.getWillInfo = getWillInfo;
 module.exports.verifyWill = verifyWill;
-module.exports.pronounceDeath = pronounceDeath;
+module.exports.confirmDeath = confirmDeath;
 module.exports.hasVerWill = hasVerWill;
 module.exports.getVerWill = getVerWill;
 

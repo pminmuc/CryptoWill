@@ -33,26 +33,11 @@ router.get('/createWill', async function (req, res, next) {
 
 /* GET witness page. */
 router.get('/witness', async function (req, res, next) {
-
-    // Get stuff from blockchain contract
-    // IMPLEMENT
-    let isWitness = true;
-    let email = "Email"
-    let benAccs = "BenAccs"
-    let verifier = "Verifier"
-
     // Open witness page
-    res.render('witness', {isWitness: isWitness, email: email, benAccs: benAccs, verifier: verifier});
+    res.render('witness', {title: "Verification"});
 });
 
 router.get('/myWill', async function (req, res, next) {
-    res.render('myWill', {title: "MyWill"});
-});
-
-router.post('/refreshWill', async function (req, res, next) {
-    let userAddr = req.body.refreshAddr;
-    console.log(userAddr);
-
     res.render('myWill', {title: "MyWill"});
 });
 
@@ -66,12 +51,11 @@ router.post('/verifyWill/:userAddr', async function (req, res, next) {
     res.redirect('/witness');
 });
 
-router.post('/confirmDeath', async function (req, res, next) {
-   let addr = req.body.addr;
-   console.log(addr);
+router.post('/confirmDeath/:userAddr', async function (req, res, next) {
+    let userAddr = req.params.userAddr;
 
    // Send death confirmation
-   //  await factory.pronounceDeath(addr, contractAddr);
+    await factory.confirmDeath(userAddr);
 
     // Provide feedback on successful death confirmation.
     res.redirect('/witness');
@@ -102,9 +86,6 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
         _benAccs = willInfo[2];
         _verAccs = willInfo[3];
     }
-
-    // DEBUG
-    console.log("Has last will: " + _hasLastWill);
 
     // Return will information to client.
     await res.json({

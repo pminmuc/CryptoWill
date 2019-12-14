@@ -2,22 +2,26 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row h-50">
+                <!-- Information about the will goes here-->
                 <div class="col-md-6" id="willInformation">
                     <p> Information about your last will.</p>
                 </div>
+
+                <!--  Buttons with functionalities go here-->
                 <div class="col-md-6" id="willUtilities">
                     <div class="row">
-<!--                        <form action="/verifyWill" method="post">-->
-<!--                            <div class="form-group">-->
-<!--                                <input type="submit" value="Verify will" class="btn btn-outline-dark">-->
-<!--                            </div>-->
-<!--                        </form>-->
-                        <div class="col-md-4 offset-md-2">
+                        <div class="col-md-6 offset-md-3">
+                            <button onclick="loadWitness()" class="btn btn-outline-dark">Refresh information</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
                             <button onclick="verifyWill()" class="btn btn-outline-dark">Verify will</button>
                         </div>
-
-                        <div class="col-md-4 offset-md-2">
-                            <button onclick="loadWitness()" class="btn btn-outline-dark">Refresh information</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <button onclick="confirmDeath()" class="btn btn-outline-dark">Confirm death</button>
                         </div>
                     </div>
                 </div>

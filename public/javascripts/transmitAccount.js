@@ -104,3 +104,11 @@ function verifyWill() {
 
     });
 }
+
+function confirmDeath() {
+    let accountAddress = document.getElementById("myHiddenAccount").value;
+
+    $.post('confirmDeath/' + accountAddress, function (req, res, next) {
+
+    });
+}
