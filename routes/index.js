@@ -71,6 +71,7 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
     let userAddr = req.params.userAddr;
     let _hasLastWill = false;
     let _contractAddr = "";
+    let _contractBal = "";
 
     // Get stuff from contract
     let _email = "Email";
@@ -79,10 +80,12 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
     let _ratios = "";
     let _verAccs = "Verifier";
 
+
     // Check if there is a last will associated with the account.
     if (await factory.hasLastWill(userAddr)) {
         _hasLastWill = true;
         _contractAddr = await factory.getWill(userAddr);
+        _contractBal = web3.utils.fromWei(await web3.eth.getBalance(_contractAddr), "ether");
 
         let willInfo = await factory.getWillInfo(_contractAddr);
         _email = willInfo[0];
@@ -100,7 +103,8 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
         contractAddr: _contractAddr,
         benAccs: _benAccs,
         ratios: _ratios,
-        verAccs: _verAccs
+        verAccs: _verAccs,
+        contractBal: _contractBal
         }
         );
 });
@@ -111,6 +115,7 @@ router.post('/witness/:userAddr', async function (req, res, next) {
     let userAddr = req.params.userAddr;
     let _hasLastWill = false;
     let _contractAddr = "";
+    let _contractBal = "";
 
     // Get stuff from contract
     let _email = "Email";
@@ -123,6 +128,7 @@ router.post('/witness/:userAddr', async function (req, res, next) {
     if (await factory.hasVerWill(userAddr)) {
         _hasLastWill = true;
         _contractAddr = await factory.getVerWill(userAddr);
+        _contractBal = web3.utils.fromWei(await web3.eth.getBalance(_contractAddr), "ether");
 
         let willInfo = await factory.getWillInfo(_contractAddr);
         _email = willInfo[0];
@@ -132,9 +138,6 @@ router.post('/witness/:userAddr', async function (req, res, next) {
         _verAccs = willInfo[4];
     }
 
-    // DEBUG
-    console.log("Has last will to verify: " + _hasLastWill);
-
     // Return will information to client.
     await res.json({
             hasLastWill: _hasLastWill,
@@ -143,7 +146,8 @@ router.post('/witness/:userAddr', async function (req, res, next) {
             contractAddr: _contractAddr,
             benAccs: _benAccs,
             ratios: _ratios,
-            verAccs: _verAccs
+            verAccs: _verAccs,
+            contractBal: _contractBal
         }
     );
 });

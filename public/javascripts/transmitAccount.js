@@ -7,6 +7,7 @@ function loadMyWill() {
         let _hasLastWill = json["hasLastWill"];
         let _email = json["email"];
         let _contractAddr = json["contractAddr"];
+        let _contractBal = json["contractBal"];
         let _verified = json["verified"];
         let _benAccs = json["benAccs"];
         let _ratios = json["ratios"];
@@ -18,6 +19,10 @@ function loadMyWill() {
                 "                                <div>\n" +
                 "                                    <p>Contract Address: <br>" +
                 _contractAddr + "</p>\n" +
+                "                                </div>\n" +
+                "                                 <div>\n" +
+                "                                    <p>Contract Balance: <br>" +
+                _contractBal + "ETH </p>\n" +
                 "                                </div>\n" +
                 "                                <div>\n" +
                 "                                    <p>Email: <br>" +
@@ -75,6 +80,7 @@ function loadWitness() {
         let _hasLastWill = json["hasLastWill"];
         let _email = json["email"];
         let _contractAddr = json["contractAddr"];
+        let _contractBal = json["contractBal"];
         let _verified = json["verified"];
         let _benAccs = json["benAccs"];
         let _ratios = json["ratios"];
@@ -86,6 +92,10 @@ function loadWitness() {
                 "                                <div>\n" +
                 "                                    <p>Contract Address: <br>" +
                 _contractAddr + "</p>\n" +
+                "                                </div>\n" +
+                "                                 <div>\n" +
+                "                                    <p>Contract Balance: <br>" +
+                _contractBal + "ETH </p>\n" +
                 "                                </div>\n" +
                 "                                <div>\n" +
                 "                                    <p>Email: <br>" +
