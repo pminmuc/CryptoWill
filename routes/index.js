@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var factory = require('./factory');
+var verifyInfo = require('./verifyInfo');
 var Web3 = require('web3');
+
 
 // Init web3 provider to communicate with local blockchain.
 var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
@@ -169,9 +171,26 @@ router.post('/submitWill', async function (req, res) {
     let _verif = []
     _verif.push(req.body.verifier);
 
-    // Submit will and process it
-    await factory.newLastWill(_addr, 0, _email, 0, _benef, _benefShare, _verif);
 
+    // Check for the last Will to contain unvalid constraints - owner & beneficiary & verifier address can not be the same
+    if(_benef.includes(_addr)) {
+        await res.json({error:"Wrong Address - Beneficiary can not include LastWill owners address!"});
+        console.log("Wrong Addr - Ben can not include LastWill owners Address!");
+    } else if(_verif.includes(_addr)) {
+        await res.json({error:"Wrong Address - Verifier can not include LastWill owners address!"});
+        console.log("Wrong Addr - verifier can not include lastwill owners address!");
+    } else if(verifyInfo.verifyAdd(_benef, _verif)) {
+        await res.json({error:"Beneficiary and Verifier must have different addresses!"});
+        console.log("ben and ver must have different addresses");
+    } else if(verifyInfo.ratioCheck(_benefShare)) {
+        await res.json({error:"The ratio of shares that beneficiaries will receive is invalid"});
+        console.log("ratio of shares is either >100 or <0 !!!");
+    } else {
+
+        // Submit will and process it
+        await factory.newLastWill(_addr, 0, _email, 0, _benef, _benefShare, _verif);
+
+    }
     // Return back to services
     res.redirect('/createWill');
 });

@@ -147,3 +147,32 @@ function confirmDeath() {
 
     });
 }
+
+function createWill() {
+
+}
+//NOT working / try to add a form dynamically loading
+function addForm() {
+    console.log("WHY");
+    $(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+        console.log("Why");
+        var controlForm = $('.controls form:first'),
+            currentEntry = $(this).parents('.entry:first'),
+            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+    }).on('click', '.btn-remove', function(e)
+    {
+        $(this).parents('.entry:first').remove();
+
+        e.preventDefault();
+
+        return false;
+    });
+}
