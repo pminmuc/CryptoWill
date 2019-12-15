@@ -133,7 +133,7 @@ contract LastWill {
     }
 
     // Verify Death by one Verifier / witness
-    function confirmDeath() onlyWitness public payable {
+    function confirmDeath() afterVerification onlyWitness public payable {
         // Set verified variable in verifier struct.
         witnesses[msg.sender].confirmedDeath = true;
 
@@ -152,12 +152,36 @@ contract LastWill {
             deathConfirmed = true;
             // Trigger Email notification and start timer for dead man's switch
             // TODO
+
+            // Distribute money to heirs
+            distributeFunds();
+        }
+    }
+
+    function distributeFunds() private {
+        // Save balance
+        uint256 totalFunds = address(this).balance;
+
+        // Loop all beneficiaries
+        for (uint i = 0; i < benAccs.length; i++) {
+            // Get beneficiary and related information
+            address payable benef = address(uint160(benAccs[i]));
+            uint256 inheritance = 0;
+            uint256 share = ben[address(benef)].ratio;
+
+            // Calculate the inheritance amount for beneficiary | divide by 100 again
+            inheritance = (totalFunds * share) / 100;
+
+            // Send the inheritance amount to the beneficiary
+            benef.transfer(inheritance);
+
+            // Set share to 0 to avoid double inheritance
+            ben[address(benef)].ratio = 0;
         }
     }
 
     // Inherit function
-    function inherit() onlyBeneficiary afterVerification afterDeath ratioValid public {
-
+    function inherit() onlyBeneficiary afterVerification afterDeath ratioValid private {
         address payable benef = msg.sender;
         uint256 inheritance = 0;
         uint256 share = ben[address(benef)].ratio;
@@ -171,7 +195,6 @@ contract LastWill {
 
         // Set share to 0 to avoid double inheritance.
         ben[address(benef)].ratio = 0;
-
     }
 
     // Used to withdraw money from the contract.
