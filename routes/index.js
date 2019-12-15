@@ -37,10 +37,12 @@ router.get('/witness', async function (req, res, next) {
     res.render('witness', {title: "Verification"});
 });
 
+/* GET myWill page*/
 router.get('/myWill', async function (req, res, next) {
     res.render('myWill', {title: "MyWill"});
 });
 
+/* Handle request to verify the will using the supplied address*/
 router.post('/verifyWill/:userAddr', async function (req, res, next) {
     let userAddr = req.params.userAddr;
 
@@ -51,6 +53,7 @@ router.post('/verifyWill/:userAddr', async function (req, res, next) {
     res.redirect('/witness');
 });
 
+/* Handle confirm Death request*/
 router.post('/confirmDeath/:userAddr', async function (req, res, next) {
     let userAddr = req.params.userAddr;
 
@@ -62,7 +65,7 @@ router.post('/confirmDeath/:userAddr', async function (req, res, next) {
 });
 
 
-/* GET myWill page. */
+/* GET myWill page with additional information based on the user's address. */
 router.post('/myWill/:userAddr', async function (req, res, next) {
     // Get users account address from the parameters.
     let userAddr = req.params.userAddr;
@@ -99,7 +102,7 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
         );
 });
 
-/* GET myWill page. */
+/* GET witness page with additional information based on the user's address. */
 router.post('/witness/:userAddr', async function (req, res, next) {
     // Get users account address from the parameters.
     let userAddr = req.params.userAddr;
@@ -163,7 +166,7 @@ router.post('/submitWill', async function (req, res) {
     res.redirect('/createWill');
 });
 
-/* Handle will creation request */
+/* Handle will information request */
 router.post('/getWill', async function (req, res) {
     // Get information from message
     let _addr = req.body.addr;
@@ -176,7 +179,7 @@ router.post('/getWill', async function (req, res) {
     res.redirect('/createWill');
 });
 
-/* Handle will creation request */
+/* Handle request to transfer funds to the will */
 router.post('/transferToWill', async function (req, res) {
     // Get information from message
     let _addr = req.body.addr;
@@ -191,6 +194,7 @@ router.post('/transferToWill', async function (req, res) {
     res.redirect('/createWill');
 });
 
+/* Handle withdrawal request. */
 router.post('/withdrawFromWill', async function (req, res) {
     // Get information from message
     let _addr = req.body.addr;

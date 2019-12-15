@@ -148,6 +148,8 @@ contract LastWill {
         // If all have verified, set the contract as verified.
         if (deathCounter == witnessAccs.length) {
             deathConfirmed = true;
+            // Trigger Email notification and start timer for dead man's switch
+            // TODO
         }
     }
 
