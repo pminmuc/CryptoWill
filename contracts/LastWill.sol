@@ -219,6 +219,7 @@ contract LastWill {
     function getWitnesses() view public returns(address[] memory) {
         return witnessAccs;
     }
+
     //
     // EVENTS
     //
