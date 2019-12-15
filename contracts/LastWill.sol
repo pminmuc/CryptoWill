@@ -23,6 +23,7 @@ contract LastWill {
     mapping (address => Beneficiary) private ben;
     // Addresses of the beneficiaries as key to access struct
     address[] private benAccs;
+    uint256[] private ratios;
 
     // Struct for the verifiers.
     struct Verifier {
@@ -52,6 +53,7 @@ contract LastWill {
 
         for (uint i = 0; i < _benAccs.length; i++) {
             benAccs.push(_benAccs[i]);
+            ratios.push(_ratio[i]);
             ben[benAccs[i]] = Beneficiary(address(uint160(_benAccs[i])), _ratio[i], true);
         }
 
@@ -208,6 +210,10 @@ contract LastWill {
 
     function getBenAccs() view public returns(address[] memory) {
         return benAccs;
+    }
+
+    function getShares() view public returns(uint256[] memory) {
+        return ratios;
     }
 
     function getWitnesses() view public returns(address[] memory) {

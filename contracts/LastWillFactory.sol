@@ -36,13 +36,19 @@ contract LastWillFactory {
     }
 
     // Returns information about the will.
-    function getWillInfo(address contractAddr) public view returns(string memory, bool, address[] memory, address[] memory) {
+    function getWillInfo(address contractAddr) public view returns(
+        string memory,
+        bool,
+        address[] memory,
+        uint256[] memory,
+        address[] memory) {
         LastWill will = LastWill(address(uint160(contractAddr)));
         string memory _email = will.getEmail();
         bool _verified = will.getVerified();
         address[] memory _benAccs = will.getBenAccs();
+        uint256[] memory _ratios = will.getShares();
         address[] memory _witnAccs = will.getWitnesses();
-        return(_email, _verified, _benAccs, _witnAccs);
+        return(_email, _verified, _benAccs, _ratios, _witnAccs);
     }
 
     function newLastWill(

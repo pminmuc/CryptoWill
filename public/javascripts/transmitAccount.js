@@ -4,16 +4,17 @@ function loadMyWill() {
     // Send post request with accountAddress
     $.post('myWill/' + accountAddress, function (req, res, next) {
         let json = req;
-        let hasLastWill = json["hasLastWill"];
+        let _hasLastWill = json["hasLastWill"];
         let _email = json["email"];
         let _contractAddr = json["contractAddr"];
         let _verified = json["verified"];
         let _benAccs = json["benAccs"];
+        let _ratios = json["ratios"];
         let _verAccs = json["verAccs"];
 
-        if (hasLastWill) {
+        if (_hasLastWill) {
             let html = "" +
-                "<h3>Your Last Will</h3>" +
+                "<h3>Last Will to verify</h3>" +
                 "                                <div>\n" +
                 "                                    <p>Contract Address: <br>" +
                 _contractAddr + "</p>\n" +
@@ -23,17 +24,28 @@ function loadMyWill() {
                 _email + "</p>\n" +
                 "                                </div>\n" +
                 "                                <div>\n" +
-                "                                    <p>Beneficiaries: <br>" +
-                _benAccs + "</p>\n" +
-                "                                </div>\n" +
-                "                                <div>\n" +
                 "                                    <p>Verification: <br>" +
                 _verified + "</p>\n" +
-                "                                </div>\n" +
-                "                                <div>\n" +
-                "                                    <p>Verifiers: <br>" +
-                _verAccs + "</p>\n" +
-                "                                </div>"
+                "                                </div>\n";
+
+            // Generate html for beneficiary information
+            var htmlBenef = "                                <div>\n" +
+                "                                    <p>Beneficiaries: <br>";
+            for (let i = 0; i < _benAccs.length; i++) {
+                htmlBenef = htmlBenef + _benAccs[i] + " Share: " + _ratios[i] + "% <br>";
+            }
+            htmlBenef = htmlBenef + "</p>\n" + "</div>\n";
+
+            // Generate html for verifiers
+            var htmlVeref = "                                <div>\n" +
+                "                                    <p>Verifiers: <br>";
+            for (let i = 0; i < _verAccs.length; i++) {
+                htmlVeref = htmlVeref + _verAccs[i] + "<br>";
+            }
+            htmlVeref = htmlVeref + "</p>\n" + "</div>\n";
+
+            // Append beneficary and verifier information
+            html = html + htmlBenef + htmlVeref;
             document.getElementById("willInformation").innerHTML = html;
         } else {
             let html = "<h3>You dont currently have a will associated with this account</h3>";
@@ -58,15 +70,17 @@ function loadWitness() {
     let accountAddress = document.getElementById("myHiddenAccount").value;
 
     $.post('witness/' + accountAddress, function (req, res, next) {
+
         let json = req;
-        let hasLastWill = json["hasLastWill"];
+        let _hasLastWill = json["hasLastWill"];
         let _email = json["email"];
         let _contractAddr = json["contractAddr"];
         let _verified = json["verified"];
         let _benAccs = json["benAccs"];
+        let _ratios = json["ratios"];
         let _verAccs = json["verAccs"];
 
-        if (hasLastWill) {
+        if (_hasLastWill) {
             let html = "" +
                 "<h3>Last Will to verify</h3>" +
                 "                                <div>\n" +
@@ -78,17 +92,28 @@ function loadWitness() {
                 _email + "</p>\n" +
                 "                                </div>\n" +
                 "                                <div>\n" +
-                "                                    <p>Beneficiaries: <br>" +
-                _benAccs + "</p>\n" +
-                "                                </div>\n" +
-                "                                <div>\n" +
                 "                                    <p>Verification: <br>" +
                 _verified + "</p>\n" +
-                "                                </div>\n" +
-                "                                <div>\n" +
-                "                                    <p>Verifiers: <br>" +
-                _verAccs + "</p>\n" +
-                "                                </div>"
+                "                                </div>\n";
+
+            // Generate html for beneficiary information
+            var htmlBenef = "                                <div>\n" +
+                "                                    <p>Beneficiaries: <br>";
+            for (let i = 0; i < _benAccs.length; i++) {
+                htmlBenef = htmlBenef + _benAccs[i] + " Share: " + _ratios[i] + "% <br>";
+            }
+            htmlBenef = htmlBenef + "</p>\n" + "</div>\n";
+
+            // Generate html for verifiers
+            var htmlVeref = "                                <div>\n" +
+                "                                    <p>Verifiers: <br>";
+            for (let i = 0; i < _verAccs.length; i++) {
+                htmlVeref = htmlVeref + _verAccs[i] + "<br>";
+            }
+            htmlVeref = htmlVeref + "</p>\n" + "</div>\n";
+
+            // Append beneficary and verifier information
+            html = html + htmlBenef + htmlVeref;
             document.getElementById("willInformation").innerHTML = html;
         } else {
             let html = "<h3>You dont currently have a will to verify</h3>";

@@ -76,6 +76,7 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
     let _email = "Email";
     let _verified = false;
     let _benAccs = "BenAccs";
+    let _ratios = "";
     let _verAccs = "Verifier";
 
     // Check if there is a last will associated with the account.
@@ -87,7 +88,8 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
         _email = willInfo[0];
         _verified = willInfo[1];
         _benAccs = willInfo[2];
-        _verAccs = willInfo[3];
+        _ratios = willInfo[3];
+        _verAccs = willInfo[4];
     }
 
     // Return will information to client.
@@ -97,6 +99,7 @@ router.post('/myWill/:userAddr', async function (req, res, next) {
         verified: _verified,
         contractAddr: _contractAddr,
         benAccs: _benAccs,
+        ratios: _ratios,
         verAccs: _verAccs
         }
         );
@@ -113,6 +116,7 @@ router.post('/witness/:userAddr', async function (req, res, next) {
     let _email = "Email";
     let _verified = false;
     let _benAccs = "BenAccs";
+    let _ratios = "";
     let _verAccs = "Verifier";
 
     // Check if there is a last will associated with the account.
@@ -124,7 +128,8 @@ router.post('/witness/:userAddr', async function (req, res, next) {
         _email = willInfo[0];
         _verified = willInfo[1];
         _benAccs = willInfo[2];
-        _verAccs = willInfo[3];
+        _ratios = willInfo[3];
+        _verAccs = willInfo[4];
     }
 
     // DEBUG
@@ -137,6 +142,7 @@ router.post('/witness/:userAddr', async function (req, res, next) {
             verified: _verified,
             contractAddr: _contractAddr,
             benAccs: _benAccs,
+            ratios: _ratios,
             verAccs: _verAccs
         }
     );
