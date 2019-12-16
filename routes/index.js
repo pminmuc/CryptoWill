@@ -156,6 +156,9 @@ router.post('/witness/:userAddr', async function (req, res, next) {
 
 /* Handle will creation request */
 router.post('/submitWill', async function (req, res) {
+
+    let name2 = req.body.name;
+    console.log(name2);
     // Get information from message
     let _email = req.body.email;
     let _addr = req.body.addr;
@@ -197,6 +200,7 @@ router.post('/submitWill', async function (req, res) {
 
 /* Handle will information request */
 router.post('/getWill', async function (req, res) {
+
     // Get information from message
     let _addr = req.body.addr;
 

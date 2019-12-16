@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <h3>Create your last will</h3>
-                            <form action="/submitWill" method="post">
+
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <label class="sr-only" for="name">Name</label>
@@ -33,7 +33,7 @@
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <label class="sr-only" for="benef">Beneficiary</label>
-                                        <input id="benAddr" type="text" name="benef" class="form-control"
+                                        <input id="benAddr0" type="text" name="benef" class="form-control"
                                                placeholder="Beneficiary address">
                                     </div>
                                 </div>
@@ -41,45 +41,50 @@
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <label class="sr-only" for="share">Share</label>
-                                        <input id="benShare" type="text" name="share" class="form-control"
+                                        <input id="benShare0" type="text" name="share" class="form-control"
                                                placeholder="Beneficiaries share">
                                     </div>
-                                    <button type="button" onclick="addForm()">Add Beneficiaries</button>
+                                    <br>
+                                    <button type="button" onclick="addForm()">Add Beneficiary</button>
                                 </div>
                                 </div>
 
 
 
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="sr-only" for="benef2">Beneficiary</label>
-                                        <input  type="text" name="benef2" class="form-control"
-                                               placeholder="Beneficiary2 address">
-                                    </div>
-                                </div>
+<!--                                <div class="row form-group">-->
+<!--                                    <div class="col-md-12">-->
+<!--                                        <label class="sr-only" for="benef2">Beneficiary</label>-->
+<!--                                        <input  type="text" name="benef2" class="form-control"-->
+<!--                                               placeholder="Beneficiary2 address">-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="sr-only" for="share2">Share</label>
-                                        <input type="text" name="share2" class="form-control"
-                                               placeholder="Beneficiaries2 share">
-                                    </div>
-                                </div>
-
-
+<!--                                <div class="row form-group">-->
+<!--                                    <div class="col-md-12">-->
+<!--                                        <label class="sr-only" for="share2">Share</label>-->
+<!--                                        <input type="text" name="share2" class="form-control"-->
+<!--                                               placeholder="Beneficiaries2 share">-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
 
-                                <div class="row form-group">
+
+                                <div name="Verifs" class="dropper-form-group" id="Verifs">
+                                <div  class="row form-group">
+
                                     <div class="col-md-12">
                                         <label class="sr-only" for="verifier">Verifier</label>
-                                        <input type="text" name="verifier" class="form-control"
+                                        <input id="verif0" type="text" name="verifier" class="form-control"
                                                placeholder="Verfifiers address">
                                     </div>
+                                    <button onclick="addVerifier()" type="button">Add Verifier</button>
+                                    </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <input type="submit" value="Submit" class="btn btn-outline-dark">
+<!--                                    <input type="submit" value="Submit" class="btn btn-outline-dark">-->
+                                    <button class="btn btn-outline-dark" id="button" onclick="submitTheWill()">Submit the Will</button>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>

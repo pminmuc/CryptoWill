@@ -148,22 +148,17 @@ function confirmDeath() {
     });
 }
 
-function createWill() {
-
-}
-
-var Forms;
+// At the beginning the counter of the beneficiaries starts at 0
 var benefIds = 0;
-
+// ADD beneficiaries
 function addForm() {
-    console.log("Test / add Form button");
-    Forms ++;
+    // console.log("Test / add Form button");
     benefIds ++;
-    var objTo = document.getElementById('benefs');
-    var appendNode = document.createElement("div");
-    appendNode.setAttribute("class","beneficiaries")
-    console.log(objTo);
-    htmlStr = '<div class="row form-group">\n' +
+    let objTo = document.getElementById('benefs');
+    let appendNode = document.createElement("div");
+    appendNode.setAttribute("class","beneficiaries" + benefIds)
+    // console.log(objTo);
+    let htmlStr = '<div class="row form-group">\n' +
         '                                    <div class="col-md-12">\n' +
         '                                        <label class="sr-only" for="benef">Beneficiary</label>\n' +
         '                                        <input id="benAddr'+ benefIds+'" type="text" name="benef" class="form-control"\n' +
@@ -177,13 +172,106 @@ function addForm() {
         '                                        <input id="benShare'+ benefIds+'" type="text" name="share" class="form-control"\n' +
         '                                               placeholder="Beneficiaries share">\n' +
         '                                    </div>\n' +
-        '                                    <button type="button" onclick="addForm()">Add Beneficiaries</button>\n' +
+        '                                    <button type="button" onclick="addForm()">Add Beneficiary</button>\n' +
+        '                                    <button id="benRemove'+ benefIds +'"type="button" onClick="removeForm('+ benefIds +')">Remove Beneficiary</button>\n' +
         '                                </div>';
 
+    // Check if the button will be invalid because the id is wrong:
+    if(benefIds > 1) {
+        document.getElementById("benRemove" + (benefIds - 1)).style.visibility = 'hidden';
+    }
     appendNode.innerHTML = htmlStr;
-
-    console.log(htmlStr);
-
     objTo.appendChild(appendNode);
 
+}
+//remove beneficiaries
+function removeForm(number) {
+    benefIds--;
+    $('.beneficiaries' + number).remove();
+    if(benefIds > 0) {
+        document.getElementById("benRemove" + benefIds).style.visibility = 'visible';
+    }
+}
+
+//Number of verifier 0 at the beginning
+var verifier = 0;
+function addVerifier() {
+    verifier++;
+
+    let objTo2 = document.getElementById('Verifs');
+    let appendNode2 = document.createElement("div");
+    appendNode2.setAttribute("class","verifscat2" + verifier);
+    let htmlStr2 = '<div>\n' +
+        '                                    <div class="col-md-12">\n' +
+        '                                        <label class="sr-only" for="verifier">Verifier</label>\n' +
+        '                                        <input id="verif' + verifier +'" type="text" name="verifier" class="form-control"\n' +
+        '                                               placeholder="Verfifiers address">\n' +
+        '                                    </div>\n' +
+        '                                    <button onclick="addVerifier()" type="button">Add Verifier</button>\n' +
+        '                                    <button id="removeVer' + verifier + '" onclick="removeVerifier(' + verifier +')" type="button">Remove Verifier</button>\n' +
+        '                                    </div>';
+
+    if(verifier > 1) {
+        document.getElementById("removeVer" + (verifier - 1)).style.visibility = 'hidden';
+    }
+    appendNode2.innerHTML = htmlStr2;
+    objTo2.appendChild(appendNode2);
+}
+//REMOVE Verifiers
+function removeVerifier(verId) {
+    //Console Logs for testing
+    // console.log(verId);
+    // console.log($('.verifscat2' + verId));
+
+    verifier--;
+    $('.verifscat2' + verId).remove();
+    if(verifier > 0) {
+        document.getElementById("removeVer" + verifier).style.visibility = 'visible';
+    }
+}
+
+//Get all the values from the Elements for submitting and sending the elements to the backend
+function submitTheWill() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let accAddr = document.getElementById("accAddr").value;
+
+    //Loop through all of the addresses, ratios and verifiers that exist
+    let benAddresses = [];
+    for(let i = 0; i <= benefIds; i++)
+    {
+        let idBen = "benAddr" + i;
+        benAddresses.push(document.getElementById(idBen).value);
+    }
+    let benRatios = [];
+    for(let i = 0; i <= benefIds; i++) {
+        let idRatio = "benShare" + i;
+        benRatios.push(document.getElementById(idRatio).value);
+    }
+
+    let verifAddresses = [];
+    for(let i = 0; i <= verifier; i++) {
+        let idVerif = "verif" + i;
+        verifAddresses.push(document.getElementById(idVerif).value);
+    }
+
+    console.log("Verif Addresses: " + verifAddresses);
+    console.log("benShares" + benRatios);
+    console.log("benAddresses" + benAddresses);
+    console.log(name + email + accAddr);
+
+    let json = {
+        name : name,
+        email : email,
+        accAddr : accAddr,
+        benAddresses : benAddresses,
+        benRatios : benRatios,
+        verifAddresses : verifAddresses
+    };
+    console.log(json);
+    $.post('/submitWill', json , function (req, res, next) {
+    console.log("Post Request");
+
+
+    });
 }
