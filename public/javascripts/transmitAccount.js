@@ -151,28 +151,39 @@ function confirmDeath() {
 function createWill() {
 
 }
-//NOT working / try to add a form dynamically loading
+
+var Forms;
+var benefIds = 0;
+
 function addForm() {
-    console.log("WHY");
-    $(document).on('click', '.btn-add', function(e)
-    {
-        e.preventDefault();
-        console.log("Why");
-        var controlForm = $('.controls form:first'),
-            currentEntry = $(this).parents('.entry:first'),
-            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+    console.log("Test / add Form button");
+    Forms ++;
+    benefIds ++;
+    var objTo = document.getElementById('benefs');
+    var appendNode = document.createElement("div");
+    appendNode.setAttribute("class","beneficiaries")
+    console.log(objTo);
+    htmlStr = '<div class="row form-group">\n' +
+        '                                    <div class="col-md-12">\n' +
+        '                                        <label class="sr-only" for="benef">Beneficiary</label>\n' +
+        '                                        <input id="benAddr'+ benefIds+'" type="text" name="benef" class="form-control"\n' +
+        '                                               placeholder="Beneficiary address">\n' +
+        '                                    </div>\n' +
+        '                                </div>\n' +
+        '\n' +
+        '                                <div class="row form-group">\n' +
+        '                                    <div class="col-md-12">\n' +
+        '                                        <label class="sr-only" for="share">Share</label>\n' +
+        '                                        <input id="benShare'+ benefIds+'" type="text" name="share" class="form-control"\n' +
+        '                                               placeholder="Beneficiaries share">\n' +
+        '                                    </div>\n' +
+        '                                    <button type="button" onclick="addForm()">Add Beneficiaries</button>\n' +
+        '                                </div>';
 
-        newEntry.find('input').val('');
-        controlForm.find('.entry:not(:last) .btn-add')
-            .removeClass('btn-add').addClass('btn-remove')
-            .removeClass('btn-success').addClass('btn-danger')
-            .html('<span class="glyphicon glyphicon-minus"></span>');
-    }).on('click', '.btn-remove', function(e)
-    {
-        $(this).parents('.entry:first').remove();
+    appendNode.innerHTML = htmlStr;
 
-        e.preventDefault();
+    console.log(htmlStr);
 
-        return false;
-    });
+    objTo.appendChild(appendNode);
+
 }
