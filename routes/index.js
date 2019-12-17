@@ -157,28 +157,24 @@ router.post('/witness/:userAddr', async function (req, res, next) {
 /* Handle will creation request */
 router.post('/submitWill', async function (req, res) {
 
+
     let _name = req.body.name;
-    console.log(name);
+    console.log(_name);
+    console.log(req.body);
+    //let _name = req.body.name;
+
     // Get information from message
     let _email = req.body.email;
     let _addr = req.body.accAddr;
 
-    let _benef = req.body.benAddresses;
 
-    // let _benef = [];
-    // _benef.push(req.body.benef);
-    // _benef.push(req.body.benef2);
+    let _benef = JSON.parse(req.body.benAddresses);
+    console.log(_benef);
 
-    let _benefShare = req.body.benRatios;
-    //
-    // let _benefShare = [];
-    // _benefShare.push(req.body.share);
-    // _benefShare.push(req.body.share2);
 
-    let _verif = req.body.verifAddresses;
+    let _benefShare = JSON.parse(req.body.benRatios);
 
-    // let _verif = []
-    // _verif.push(req.body.verifier);
+    let _verif = JSON.parse(req.body.verifAddresses);
 
 
     // Check for the last Will to contain unvalid constraints - owner & beneficiary & verifier address can not be the same

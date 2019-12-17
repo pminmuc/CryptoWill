@@ -7,8 +7,13 @@ var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
 
 // Verify if Beneficiary address is contained in verifiers
 function verifyAdd(benef, verif) {
+    console.log(benef);
+    console.log(verif);
     for(var i = 0; i < benef.length; i++) {
+        console.log(benef.length);
         if(verif.includes(benef[i])) {
+            console.log(benef[i]);
+            console.log(verif);
             return true;
         }
     }

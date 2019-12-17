@@ -4,6 +4,7 @@ function loadMyWill() {
     // Send post request with accountAddress
     $.post('myWill/' + accountAddress, function (req, res, next) {
         let json = req;
+        console.log(json);
         let _hasLastWill = json["hasLastWill"];
         let _email = json["email"];
         let _contractAddr = json["contractAddr"];
@@ -260,13 +261,18 @@ function submitTheWill() {
     console.log("benAddresses" + benAddresses);
     console.log(name + email + accAddr);
 
+    // String it
+    let stringB = JSON.stringify(benAddresses);
+    let stringR = JSON.stringify(benRatios);
+    let stringVA = JSON.stringify(verifAddresses);
+    // console.log(stringB);
     let json = {
         name : name,
         email : email,
         accAddr : accAddr,
-        benAddresses : benAddresses,
-        benRatios : benRatios,
-        verifAddresses : verifAddresses
+        benAddresses : stringB,
+        benRatios : stringR,
+        verifAddresses : stringVA
     };
     console.log(json);
     $.post('/submitWill', json , function (req, res, next) {
