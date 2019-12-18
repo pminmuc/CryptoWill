@@ -194,10 +194,11 @@ router.post('/submitWill', async function (req, res) {
 
         // Submit will and process it
         await factory.newLastWill(_addr, 0, _email, 0, _benef, _benefShare, _verif);
-
+        res.redirect('/createWill');
     }
     // Return back to services
-    res.redirect('/createWill');
+
+
 });
 
 /* Handle will information request */

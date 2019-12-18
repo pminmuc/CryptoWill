@@ -275,9 +275,10 @@ function submitTheWill() {
         verifAddresses : stringVA
     };
     console.log(json);
-    $.post('/submitWill', json , function (req, res, next) {
+    $.post('/submitWill', json , async function (data) {
     console.log("Post Request");
-
+        console.log(data);
+        window.alert(data.error);
 
     });
 }
