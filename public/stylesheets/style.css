@@ -12,3 +12,33 @@
     text-align: center;
     min-height: 100vh;
   }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 60vh;
+  }
+
+  .about-header {
+    padding: 5%;
+  }
+
+  .about-content {
+    padding: 5%;
+  }
+
+  .about-pitch {
+    font-style: italic;
+  }
+
+  .about-get-started {
+      padding-top: 5%;
+  }
+
+
+
+
+  

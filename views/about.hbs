@@ -1,29 +1,57 @@
-<div class="border-bottom">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Store your will online.</h3>
-                        <p>Use the full potential of blockchain technology.</p>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h4>Immutable</h4>
-                                <p>Secure against third party intervention and changes.</p>
-                            </div>
-                            <div class="col-md-4">
-                                <h4>Safe</h4>
-                                <p>No paper copy that could be destroyed.</p>
-                            </div>
-                            <div class="col-md-4">
-                                <h4>Convenient</h4>
-                                <p>Every change can be done within minutes.</p>
-                            </div>
-                        </div>
-                        <!--                    Some content here-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="row">
+                <div class="about">  
+                    <div class = "about-header">
+                        <h3>Store your will online</h3>
+                        <p>Use the full potential of blockchain technology</p>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Immutable</h4>
+                            <p>Secure against third party intervention and changes.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Safe</h4>
+                            <p>No paper copy that could be destroyed.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Convenient</h4>
+                            <p>Every change can be done within minutes.</p>
+                        </div>
+                        <div class = "about-content">
+                            <p class = "about-pitch">
+                                Non-traditional assets require non-traditional estate
+                                planning and estate distribution solutions. CryptoWill 
+                                is ushering in the next generation inheritance & testimony 
+                                service solution to ensure that cryptocurrency assets are protected
+                                for next of kin and loved ones. Our service, powered by cutting-edge technology, 
+                                is protecting your cryptocurrency assets for generations to come.
+                            </p>
+                        </div>
+                    </div>
+                    <div class = "about-get-started">
+                        <p> 
+                            <a href="/createWill" class="btn btn-lg btn-secondary">Get started</a>
+                        </p>
+                    </div>
+                    <div id = "metamask-notification"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    setTimeout(async function(){
+        console.log("Tja")
+        if(typeof $("myHiddenAccount").value !== undefined) {
+            console.log("hello")
+            document.getElementById("metamask-notification").innerHTML = 
+            "<p>" +
+                "Dont forget to log into your metamask account " +
+                "<img src='images/metamask.png' width = 15px height = 15px/>" +
+            "</p>";
+        }
+}, 10); 
+</script>
