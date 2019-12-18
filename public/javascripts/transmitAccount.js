@@ -173,8 +173,10 @@ function addForm() {
         '                                        <input id="benShare'+ benefIds+'" type="text" name="share" class="form-control"\n' +
         '                                               placeholder="Beneficiaries share">\n' +
         '                                    </div>\n' +
-        '                                    <button type="button" onclick="addForm()">Add Beneficiary</button>\n' +
-        '                                    <button id="benRemove'+ benefIds +'"type="button" onClick="removeForm('+ benefIds +')">Remove Beneficiary</button>\n' +
+        '</div>\n' +
+        '                                 <div class="row form-group">\n' +
+        '                                     <p id="descr">Address and Share for '+ (benefIds + 1) +'th Beneficiary </p>\n' +
+        '                                    <button class="btn btn-outline-danger col-md-12" id="benRemove'+ benefIds +'"type="button" onClick="removeForm('+ benefIds +')">Remove Beneficiary</button>\n' +
         '                                </div>';
 
     // Check if the button will be invalid because the id is wrong:
@@ -202,14 +204,15 @@ function addVerifier() {
     let objTo2 = document.getElementById('Verifs');
     let appendNode2 = document.createElement("div");
     appendNode2.setAttribute("class","verifscat2" + verifier);
-    let htmlStr2 = '<div>\n' +
+    let htmlStr2 = '<div class="row form-group">\n' +
         '                                    <div class="col-md-12">\n' +
         '                                        <label class="sr-only" for="verifier">Verifier</label>\n' +
         '                                        <input id="verif' + verifier +'" type="text" name="verifier" class="form-control"\n' +
         '                                               placeholder="Verfifiers address">\n' +
         '                                    </div>\n' +
-        '                                    <button onclick="addVerifier()" type="button">Add Verifier</button>\n' +
-        '                                    <button id="removeVer' + verifier + '" onclick="removeVerifier(' + verifier +')" type="button">Remove Verifier</button>\n' +
+        '</div>\n' +
+        '<div class="row form-group">\n' +
+        '                                    <button class="btn btn-outline-danger col-md-12" id="removeVer' + verifier + '" onclick="removeVerifier(' + verifier +')" type="button">Remove Verifier</button>\n' +
         '                                    </div>';
 
     if(verifier > 1) {
