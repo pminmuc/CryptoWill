@@ -175,7 +175,7 @@ function addForm() {
         '                                    </div>\n' +
         '</div>\n' +
         '                                 <div class="row form-group">\n' +
-        '                                     <p id="descr">Address and Share for '+ (benefIds + 1) +'th Beneficiary </p>\n' +
+        '                                     <p id="descr">Address and Share for the '+ (benefIds + 1) +'th Beneficiary </p>\n' +
         '                                    <button class="btn btn-outline-danger col-md-12" id="benRemove'+ benefIds +'"type="button" onClick="removeForm('+ benefIds +')">Remove Beneficiary</button>\n' +
         '                                </div>';
 
@@ -212,6 +212,7 @@ function addVerifier() {
         '                                    </div>\n' +
         '</div>\n' +
         '<div class="row form-group">\n' +
+        '                                     <p id="descr">Address for the '+ (verifier + 1) +'th Verifier </p>\n' +
         '                                    <button class="btn btn-outline-danger col-md-12" id="removeVer' + verifier + '" onclick="removeVerifier(' + verifier +')" type="button">Remove Verifier</button>\n' +
         '                                    </div>';
 

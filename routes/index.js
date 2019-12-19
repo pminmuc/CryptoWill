@@ -177,8 +177,12 @@ router.post('/submitWill', async function (req, res) {
     let _verif = JSON.parse(req.body.verifAddresses);
 
 
+
     // Check for the last Will to contain unvalid constraints - owner & beneficiary & verifier address can not be the same
-    if(_benef.includes(_addr)) {
+    if (! (verifyInfo.validAddress(_addr) && verifyInfo.containsAddress(_benef) && verifyInfo.containsAddress(_verif))) {
+        await res.json({error:"Addresses must be valid Ethereum Addresses!"});
+        console.log("wrong addresses");
+    }else if(_benef.includes(_addr)) {
         await res.json({error:"Wrong Address - Beneficiary can not include LastWill owners address!"});
         console.log("Wrong Addr - Ben can not include LastWill owners Address!");
     } else if(_verif.includes(_addr)) {
