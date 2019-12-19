@@ -78,7 +78,8 @@ module.exports = {
 
     // local blockchain
       development: {
-        host: "192.168.43.13",     // geth client IP
+        host: "127.0.0.1",     // geth client IP
+        //host: "192.168.43.13",     // geth client IP
         port: 7545,            // RPC port
         network_id: "5777",       // Any network
       }
