@@ -7,7 +7,7 @@ var Web3 = require('web3');
 
 
 // Init web3 provider to communicate with local blockchain.
-var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+var web3 = new Web3(new Web3.providers.HttpProvider("HTTP://192.168.43.13:7545"));
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
