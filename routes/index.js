@@ -176,8 +176,11 @@ router.post('/submitWill', async function (req, res) {
 
     let _verif = JSON.parse(req.body.verifAddresses);
 
+    console.log((verifyInfo.validAddress(_addr) && verifyInfo.containsAddress(_benef) && verifyInfo.containsAddress(_verif)));
 
-
+    console.log(verifyInfo.validAddress(_addr));
+    console.log(verifyInfo.containsAddress(_benef));
+    console.log(verifyInfo.containsAddress(_verif));
     // Check for the last Will to contain unvalid constraints - owner & beneficiary & verifier address can not be the same
     if (! (verifyInfo.validAddress(_addr) && verifyInfo.containsAddress(_benef) && verifyInfo.containsAddress(_verif))) {
         await res.json({error:"Addresses must be valid Ethereum Addresses!"});

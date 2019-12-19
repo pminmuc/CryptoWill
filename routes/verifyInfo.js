@@ -46,12 +46,15 @@ function verifyAdd(benef, verif) {
 // CHeck if the ratio is valid
 function ratioCheck(ratio) {
     var ratioInt = 0;
+
     for(var i = 0; i < ratio.length; i ++) {
-        ratioInt += ratio[i];
+        ratioInt += parseInt(ratio[i]);
         if(ratioInt > 100) {
+            console.log(ratioInt);
             return true;
         }
     }
+    ratioInt = parseInt(ratioInt);
     if (ratioInt > 0 && ratioInt <= 100) {
         return false;
     }
@@ -60,7 +63,7 @@ function ratioCheck(ratio) {
 
 function containsAddress(addrArray) {
     for(let i = 0; i < addrArray.length; i++) {
-        if(isAddress(addrArray[i])) {
+        if(!isAddress(addrArray[i])) {
             return false;
         }
     }
