@@ -1,31 +1,37 @@
-<div class="h-100 container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row h-50">
-                <!--  Information about the will goes here-->
-                <div class="col-md-6" id="willInformation">
-                    <p> Information about your last will.</p>
+
+    <div class="col-md-6 offset-md-3">
+        <div class="about">  
+            <div class = "about-header">
+                <h3>Information about your CryptoWill</h3>
+                <p>Here you have everything you need for your CryptoWill</p>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>If you don't have a last will yet you can create one here</p>
+                    <button onclick="location.href = './createWill'" class="btn btn-outline-dark">
+                        Create Will
+                    </button>
                 </div>
-                <!--  Buttons with functionalities go here-->
-                <div class="col-md-6" id="willUtilities">
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <button onclick="location.href = './createWill'" class="btn btn-outline-dark">Create last
-                                Will
-                            </button>
-                        </div>
-                        <div class="col-md-6 offset-md-3">
-                            <button onclick="loadMyWill()" class="btn btn-outline-dark">Refresh information</button>
-                        </div>
-                        <div class="col-md-6 offset-md-3">
-                            <button onclick="location.href = './createWill'" class="btn btn-outline-dark">Fund will</button>
-                        </div>
-                        <div class="col-md-6 offset-md-3">
-                            <button onclick="location.href = './createWill'" class="btn btn-outline-dark">Withdraw funds</button>
-                        </div>
-                    </div>
+                <div class="col-md-3">
+                        <p>Remember to never open your last will in the eyes of others</p>
+                    <button onclick="loadMyWill()" class="btn btn-outline-dark">
+                        Show CryptoWill
+                    </button>
                 </div>
+                <div class="col-md-3">
+                    <p>If you want to send Ether to your will you can do it here</p>
+                    <button onclick="location.href = './createWill'" class="btn btn-outline-dark">
+                        Fund your will
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <p>If you want to Withdraw Ether you can do it here</p>
+                    <button onclick="location.href = './createWill'" class="btn btn-outline-dark">
+                        Withdraw funds
+                    </button>
+                </div>
+                </div>
+            <div id ="willInformation" class = "create-will-padding" >
             </div>
         </div>
     </div>
-</div>

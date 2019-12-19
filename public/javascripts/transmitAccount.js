@@ -16,7 +16,7 @@ function loadMyWill() {
 
         if (_hasLastWill) {
             let html = "" +
-                "<h3>Last Will to verify</h3>" +
+                "<h3>My Last Will</h3>" +
                 "                                <div>\n" +
                 "                                    <p>Contract Address: <br>" +
                 _contractAddr + "</p>\n" +
