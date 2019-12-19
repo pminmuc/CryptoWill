@@ -139,6 +139,8 @@ function verifyWill() {
     $.post('verifyWill/' + accountAddress, function (req, res, next) {
 
     });
+
+    window.alert("Contract Verification Sent");
 }
 
 function confirmDeath() {
@@ -147,6 +149,7 @@ function confirmDeath() {
     $.post('confirmDeath/' + accountAddress, function (req, res, next) {
 
     });
+    window.alert("Confirmation of Death Sent");
 }
 
 // At the beginning the counter of the beneficiaries starts at 0
