@@ -6118,12 +6118,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x2060ebf5cceE624A05Fe529A915cd72DFa86aAb2",
-      "transactionHash": "0x92df7c239633425e4d63296c4ff96efb47a0c386675d33e7369db2ea82a09c95"
+      "address": "0x80cFcdfF0B3f9d073e8E20f20124a96E837b99f9",
+      "transactionHash": "0x94b2c294971ff6840de21e2b42d6875008e38120a23da29907f3da3f8cb636f0"
     }
   },
   "schemaVersion": "3.0.17",
-  "updatedAt": "2019-12-19T10:19:58.259Z",
+  "updatedAt": "2019-12-19T14:03:03.265Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

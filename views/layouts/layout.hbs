@@ -20,9 +20,9 @@
                 // if metamask is on, web3 is injected...
                 web3Provider = window.web3.currentProvider
             } else {
-                // otherwise, use truffle network...
-                // web3Provider = new Web3.providers.HttpProvider('http://192.168.43.13:7545')
-                web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+                //otherwise, use truffle network...
+                 // web3Provider = new Web3.providers.HttpProvider('http://192.168.43.13:7545')
+                 web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
             }
 
             console.log("web3Provider", web3Provider) // MetamaskInpageProvider
